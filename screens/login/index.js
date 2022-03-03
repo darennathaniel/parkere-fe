@@ -11,14 +11,16 @@ import styles from './styles';
 import {useNavigation} from '@react-navigation/core';
 import {handleLogin} from './services';
 import {setToken} from '../common/authorization';
+import {useDispatch} from 'react-redux';
+import {setIsLogged} from '../../slices/isLoggedSlice';
 
 export default function Login(props) {
   const navigation = useNavigation();
 
-  // const {setSigned} = props;
-
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
+
+  const dispatch = useDispatch();
 
   return (
     <SafeAreaView style={styles.container}>
@@ -49,6 +51,7 @@ export default function Login(props) {
                 password: password,
               });
               setToken(login.data.data.token);
+              dispatch(setIsLogged({value: true}));
               navigation.navigate('Home');
             } catch (err) {
               console.log(err);

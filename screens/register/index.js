@@ -13,14 +13,17 @@ import styles from './styles';
 import {handleRegister} from './services';
 import {setToken} from '../common/authorization';
 
+import {useDispatch} from 'react-redux';
+import {setIsLogged} from '../../slices/isLoggedSlice';
+
 export default function Register(props) {
   const navigation = useNavigation();
-
-  // const {setSigned} = props;
 
   const [email, setEmail] = useState('');
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
+
+  const dispatch = useDispatch();
 
   return (
     <SafeAreaView style={styles.container}>
@@ -71,8 +74,8 @@ export default function Register(props) {
                 email: email,
                 password: password,
               });
-              // setSigned(register.data.data.token);
               setToken(register.data.data.token);
+              dispatch(setIsLogged({value: true}));
               navigation.navigate('Home');
             }}></Button>
         </View>
