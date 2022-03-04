@@ -14,6 +14,8 @@
 		13B07FC11A68108700A75B9A /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB71A68108700A75B9A /* main.m */; };
 		81AB9BB82411601600AC10FF /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */; };
 		91AB0A20A127489C81BC32AC /* libPods-parkerefe2.a in Frameworks */ = {isa = PBXBuildFile; fileRef = CAD50C3899960A96687F64D5 /* libPods-parkerefe2.a */; };
+		AE0B8541E1A519DE3877505B /* ExpoModulesProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4286E45790CF6E2C29571364 /* ExpoModulesProvider.swift */; };
+		BBA248CC44F1E750A45DEB9A /* ExpoModulesProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = E53CB9D8707B06D1E9BA1337 /* ExpoModulesProvider.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -38,11 +40,13 @@
 		13B07FB71A68108700A75B9A /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = main.m; path = parkerefe2/main.m; sourceTree = "<group>"; };
 		24DB3E9569633890F39A6048 /* Pods-parkerefe2.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-parkerefe2.release.xcconfig"; path = "Target Support Files/Pods-parkerefe2/Pods-parkerefe2.release.xcconfig"; sourceTree = "<group>"; };
 		343F008F153CC12A734FEB68 /* Pods-parkerefe2.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-parkerefe2.debug.xcconfig"; path = "Target Support Files/Pods-parkerefe2/Pods-parkerefe2.debug.xcconfig"; sourceTree = "<group>"; };
+		4286E45790CF6E2C29571364 /* ExpoModulesProvider.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = ExpoModulesProvider.swift; path = "Pods/Target Support Files/Pods-parkerefe2/ExpoModulesProvider.swift"; sourceTree = "<group>"; };
 		7935025AA3DFC4EB5DFDF14F /* Pods-parkerefe2-parkerefe2Tests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-parkerefe2-parkerefe2Tests.debug.xcconfig"; path = "Target Support Files/Pods-parkerefe2-parkerefe2Tests/Pods-parkerefe2-parkerefe2Tests.debug.xcconfig"; sourceTree = "<group>"; };
 		81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = LaunchScreen.storyboard; path = parkerefe2/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		AE6EE0E6A0BB8AED5349DFD1 /* libPods-parkerefe2-parkerefe2Tests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-parkerefe2-parkerefe2Tests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		BEF47C8C0D798F2098647BAC /* Pods-parkerefe2-parkerefe2Tests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-parkerefe2-parkerefe2Tests.release.xcconfig"; path = "Target Support Files/Pods-parkerefe2-parkerefe2Tests/Pods-parkerefe2-parkerefe2Tests.release.xcconfig"; sourceTree = "<group>"; };
 		CAD50C3899960A96687F64D5 /* libPods-parkerefe2.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-parkerefe2.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		E53CB9D8707B06D1E9BA1337 /* ExpoModulesProvider.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = ExpoModulesProvider.swift; path = "Pods/Target Support Files/Pods-parkerefe2-parkerefe2Tests/ExpoModulesProvider.swift"; sourceTree = "<group>"; };
 		ED297162215061F000B7C4FE /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = System/Library/Frameworks/JavaScriptCore.framework; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
 
@@ -96,6 +100,15 @@
 			name = parkerefe2;
 			sourceTree = "<group>";
 		};
+		18BB21896B0057E68D561A51 /* ExpoModulesProviders */ = {
+			isa = PBXGroup;
+			children = (
+				F110A612B20013C76BDC9CCA /* parkerefe2 */,
+				44E21BBFBB5C1724AE79EEF8 /* parkerefe2Tests */,
+			);
+			name = ExpoModulesProviders;
+			sourceTree = "<group>";
+		};
 		2D16E6871FA4F8E400B85C8A /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
@@ -104,6 +117,14 @@
 				AE6EE0E6A0BB8AED5349DFD1 /* libPods-parkerefe2-parkerefe2Tests.a */,
 			);
 			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		44E21BBFBB5C1724AE79EEF8 /* parkerefe2Tests */ = {
+			isa = PBXGroup;
+			children = (
+				E53CB9D8707B06D1E9BA1337 /* ExpoModulesProvider.swift */,
+			);
+			name = parkerefe2Tests;
 			sourceTree = "<group>";
 		};
 		5F21F4ADE59F70453F37049A /* Pods */ = {
@@ -134,6 +155,7 @@
 				83CBBA001A601CBA00E9B192 /* Products */,
 				2D16E6871FA4F8E400B85C8A /* Frameworks */,
 				5F21F4ADE59F70453F37049A /* Pods */,
+				18BB21896B0057E68D561A51 /* ExpoModulesProviders */,
 			);
 			indentWidth = 2;
 			sourceTree = "<group>";
@@ -147,6 +169,14 @@
 				00E356EE1AD99517003FC87E /* parkerefe2Tests.xctest */,
 			);
 			name = Products;
+			sourceTree = "<group>";
+		};
+		F110A612B20013C76BDC9CCA /* parkerefe2 */ = {
+			isa = PBXGroup;
+			children = (
+				4286E45790CF6E2C29571364 /* ExpoModulesProvider.swift */,
+			);
+			name = parkerefe2;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -404,6 +434,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				00E356F31AD99517003FC87E /* parkerefe2Tests.m in Sources */,
+				BBA248CC44F1E750A45DEB9A /* ExpoModulesProvider.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -413,6 +444,7 @@
 			files = (
 				13B07FBC1A68108700A75B9A /* AppDelegate.m in Sources */,
 				13B07FC11A68108700A75B9A /* main.m in Sources */,
+				AE0B8541E1A519DE3877505B /* ExpoModulesProvider.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -437,7 +469,7 @@
 					"$(inherited)",
 				);
 				INFOPLIST_FILE = parkerefe2Tests/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -461,7 +493,7 @@
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				COPY_PHASE_STRIP = NO;
 				INFOPLIST_FILE = parkerefe2Tests/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -577,7 +609,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					/usr/lib/swift,
 					"$(inherited)",
@@ -635,7 +667,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					/usr/lib/swift,
 					"$(inherited)",
