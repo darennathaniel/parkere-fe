@@ -14,10 +14,9 @@ import {setToken} from '../common/authorization';
 import {useDispatch} from 'react-redux';
 import {setIsLogged} from '../../slices/isLoggedSlice';
 
-import * as WebBrowser from 'expo-web-browser';
-import * as Google from 'expo-auth-session/providers/google';
+import {AxiosInit} from '../../axios';
 
-WebBrowser.maybeCompleteAuthSession();
+import * as Google from 'expo-auth-session/providers/google';
 
 export default function Login(props) {
   const navigation = useNavigation();
@@ -37,7 +36,16 @@ export default function Login(props) {
   useEffect(() => {
     if (response?.type === 'success') {
       const {authentication} = response;
-      console.log(authentication);
+      const parkereAxios = AxiosInit();
+      parkereAxios
+        .get('/user/google', {
+          headers: {Authorization: 'Bearer ' + authentication.accessToken},
+        })
+        .then(res => {
+          setToken(res.data.token);
+          dispatch(setIsLogged({value: true}));
+        })
+        .catch(err => console.log(err));
     }
   }, [response]);
 
