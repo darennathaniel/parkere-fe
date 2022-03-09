@@ -3,8 +3,11 @@ import {StyleSheet} from 'react-native';
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    alignItems: 'center',
+  },
+  carparkContainer: {
+    flex: 25,
     justifyContent: 'center',
+    alignItems: 'center',
   },
 });
 

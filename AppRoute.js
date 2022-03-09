@@ -1,17 +1,30 @@
-import React from 'react';
+import React, {useState, useEffect, useMemo} from 'react';
 import {NavigationContainer} from '@react-navigation/native';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import Home from './screens/home';
-import Search from './screens/search';
 import LoginScreen from './stacks/login';
 import Profile from './screens/profile';
-import {getToken} from './screens/common/authorization';
-import {useSelector} from 'react-redux';
+import {useDispatch, useSelector} from 'react-redux';
+import SearchScreen from './stacks/search';
+
+import {getAllCarpark} from './screens/search/services';
+import {setCarparks} from './slices/carparkSlice';
 
 const Root = createBottomTabNavigator();
 
 export default function AppRoute() {
-  const isLogged = useSelector(state => state.isLogged.value);
+  const isLogged = useSelector(state => state.isLogged);
+
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    getAllCarpark()
+      .then(res => {
+        dispatch(setCarparks({data: res.data.data}));
+      })
+      .catch(err => console.log(err));
+  }, []);
+
   return (
     <NavigationContainer>
       <Root.Navigator initialRouteName="Home">
@@ -21,15 +34,15 @@ export default function AppRoute() {
           options={{headerShown: false}}
         />
         <Root.Screen
-          component={Search}
-          name="Search"
-          options={{headerShown: false}}
+          component={SearchScreen}
+          name="SearchScreen"
+          options={{headerShown: false, tabBarLabel: 'Search'}}
         />
-        {isLogged ? (
+        {isLogged.value ? (
           <Root.Screen
             component={Profile}
             name="Profile"
-            options={{headerShown: false, tabBarLabel: 'Profile'}}
+            options={{headerShown: false, tabBarLabel: isLogged.name}}
           />
         ) : (
           <Root.Screen
