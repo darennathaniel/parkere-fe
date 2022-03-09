@@ -15,6 +15,7 @@ import {setToken} from '../common/authorization';
 
 import {useDispatch} from 'react-redux';
 import {setIsLogged} from '../../slices/isLoggedSlice';
+import PopUp from '../common/modal';
 
 export default function Register(props) {
   const navigation = useNavigation();
@@ -22,6 +23,9 @@ export default function Register(props) {
   const [email, setEmail] = useState('');
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
+
+  const [errorMsg, setErrorMsg] = useState('');
+  const [show, setShow] = useState(false);
 
   const dispatch = useDispatch();
 
@@ -69,17 +73,23 @@ export default function Register(props) {
             title="Register"
             underlayColor="#fff"
             onPress={async () => {
-              const register = await handleRegister({
-                username: username,
-                email: email,
-                password: password,
-              });
-              setToken(register.data.data.token);
-              dispatch(setIsLogged({value: true}));
-              navigation.navigate('Home');
+              try {
+                const register = await handleRegister({
+                  username: username,
+                  email: email,
+                  password: password,
+                });
+                setToken(register.data.data.token);
+                dispatch(setIsLogged({value: true}));
+                navigation.navigate('Home');
+              } catch (err) {
+                setErrorMsg(err.response.data.message);
+                setShow(true);
+              }
             }}></Button>
         </View>
       </View>
+      <PopUp show={show} setShow={setShow} message={errorMsg} />
     </SafeAreaView>
   );
 }

@@ -4,10 +4,11 @@ export const isLoggedSlice = createSlice({
   name: 'isLogged',
   initialState: {
     value: false,
+    name: '',
   },
   reducers: {
     setIsLogged: (state, action) => {
-      state.value = action.payload.value;
+      return {...action.payload};
     },
   },
 });

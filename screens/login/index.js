@@ -17,12 +17,16 @@ import {setIsLogged} from '../../slices/isLoggedSlice';
 import {AxiosInit} from '../../axios';
 
 import * as Google from 'expo-auth-session/providers/google';
+import PopUp from '../common/modal';
 
 export default function Login(props) {
   const navigation = useNavigation();
 
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
+
+  const [show, setShow] = useState(false);
+  const [errorMsg, setErrorMsg] = useState('');
 
   const [request, response, promptAsync] = Google.useAuthRequest({
     iosClientId:
@@ -43,7 +47,8 @@ export default function Login(props) {
         })
         .then(res => {
           setToken(res.data.token);
-          dispatch(setIsLogged({value: true}));
+          dispatch(setIsLogged({value: true, name: res.data.name}));
+          navigation.navigate('Home');
         })
         .catch(err => console.log(err));
     }
@@ -78,10 +83,11 @@ export default function Login(props) {
                 password: password,
               });
               setToken(login.data.data.token);
-              dispatch(setIsLogged({value: true}));
+              dispatch(setIsLogged({value: true, name: username}));
               navigation.navigate('Home');
             } catch (err) {
-              console.log(err);
+              setShow(true);
+              setErrorMsg(err.response.data.message);
             }
           }}></Button>
         <Button
@@ -100,6 +106,7 @@ export default function Login(props) {
           <Text style={{color: 'navy'}}>Registered?</Text>
         </TouchableOpacity>
       </View>
+      <PopUp show={show} setShow={setShow} message={errorMsg} />
     </SafeAreaView>
   );
 }

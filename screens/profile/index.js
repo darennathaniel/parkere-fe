@@ -15,7 +15,7 @@ export default function Profile() {
           title="Logout"
           onPress={() => {
             delToken();
-            dispatch(setIsLogged({value: false}));
+            dispatch(setIsLogged({value: false, name: ''}));
           }}
         />
       </View>
