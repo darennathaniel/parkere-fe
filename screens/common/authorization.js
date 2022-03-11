@@ -10,7 +10,8 @@ export const setToken = async token => {
 
 export const getToken = async () => {
   try {
-    return await AsyncStorage.getItem('token');
+    const token = await AsyncStorage.getItem('token');
+    return token;
   } catch (err) {
     console.log(err);
   }

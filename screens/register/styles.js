@@ -13,11 +13,11 @@ const styles = StyleSheet.create({
     borderRadius: 12,
   },
   topNavigation: {
-    flex: 1,
+    position: 'relative',
     paddingLeft: 20,
   },
   content: {
-    flex: 25,
+    flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
   },

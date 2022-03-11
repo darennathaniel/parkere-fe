@@ -1,5 +1,5 @@
 import {useNavigation} from '@react-navigation/core';
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import {
   Linking,
   SafeAreaView,

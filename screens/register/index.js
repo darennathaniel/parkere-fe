@@ -51,6 +51,7 @@ export default function Register(props) {
             }}
             placeholder="Email"
             autoCapitalize="none"
+            autoComplete="email"
           />
           <TextInput
             style={styles.textInput}

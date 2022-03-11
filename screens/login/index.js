@@ -10,7 +10,7 @@ import {
 import styles from './styles';
 import {useNavigation} from '@react-navigation/core';
 import {handleLogin} from './services';
-import {setToken} from '../common/authorization';
+import {getToken, setToken} from '../common/authorization';
 import {useDispatch} from 'react-redux';
 import {setIsLogged} from '../../slices/isLoggedSlice';
 
@@ -18,6 +18,7 @@ import {AxiosInit} from '../../axios';
 
 import * as Google from 'expo-auth-session/providers/google';
 import PopUp from '../common/modal';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 export default function Login(props) {
   const navigation = useNavigation();
@@ -50,7 +51,10 @@ export default function Login(props) {
           dispatch(setIsLogged({value: true, name: res.data.name}));
           navigation.navigate('Home');
         })
-        .catch(err => console.log(err));
+        .catch(err => {
+          setShow(true);
+          setErrorMsg(err.response.data.message);
+        });
     }
   }, [response]);
 

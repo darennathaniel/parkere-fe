@@ -30,9 +30,11 @@ const styles = StyleSheet.create({
     borderRadius: 22,
     padding: 8,
     elevation: 2,
-    backgroundColor: '#2196F3',
+    backgroundColor: 'gray',
+    width: '80%',
   },
   buttonText: {
+    textAlign: 'center',
     fontSize: 17,
   },
 });
