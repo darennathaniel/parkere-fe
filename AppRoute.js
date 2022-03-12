@@ -1,11 +1,11 @@
 import React, {useState, useEffect, useMemo} from 'react';
 import {NavigationContainer} from '@react-navigation/native';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
-import Home from './screens/home';
 import LoginScreen from './stacks/login';
 import Profile from './screens/profile';
+import Search from './screens/search';
+import HomeScreen from './stacks/home';
 import {useDispatch, useSelector} from 'react-redux';
-import SearchScreen from './stacks/search';
 
 import {getAllCarpark} from './screens/search/services';
 import {setCarparks} from './slices/carparkSlice';
@@ -27,15 +27,15 @@ export default function AppRoute() {
 
   return (
     <NavigationContainer>
-      <Root.Navigator initialRouteName="Home">
+      <Root.Navigator initialRouteName="HomeScreen">
         <Root.Screen
-          component={Home}
-          name="Home"
-          options={{headerShown: false}}
+          component={HomeScreen}
+          name="HomeScreen"
+          options={{headerShown: false, tabBarLabel: 'Home'}}
         />
         <Root.Screen
-          component={SearchScreen}
-          name="SearchScreen"
+          component={Search}
+          name="Search"
           options={{headerShown: false, tabBarLabel: 'Search'}}
         />
         {isLogged.value ? (

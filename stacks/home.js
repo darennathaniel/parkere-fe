@@ -2,24 +2,24 @@ import React from 'react';
 
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
 
-import Search from '../screens/search';
 import Carpark from '../screens/carpark';
 import {useSelector} from 'react-redux';
+import Home from '../screens/home';
 
-const SearchStack = createNativeStackNavigator();
+const HomeStack = createNativeStackNavigator();
 
-export default function SearchScreen(props) {
+export default function HomeScreen(props) {
   const carparks = useSelector(state => state.carparks.data);
-
   return (
-    <SearchStack.Navigator initialRouteName="Search">
-      <SearchStack.Screen
-        name="Search"
-        component={Search}
-        options={{headerShown: false}}></SearchStack.Screen>
+    <HomeStack.Navigator>
+      <HomeStack.Screen
+        name="Home"
+        component={Home}
+        options={{headerShown: false}}
+      />
       {carparks.map(carpark => {
         return (
-          <SearchStack.Screen
+          <HomeStack.Screen
             key={carpark._id}
             name={carpark.park_number}
             component={Carpark}
@@ -28,6 +28,6 @@ export default function SearchScreen(props) {
           />
         );
       })}
-    </SearchStack.Navigator>
+    </HomeStack.Navigator>
   );
 }

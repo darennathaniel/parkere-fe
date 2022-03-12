@@ -15,7 +15,6 @@ import ReviewModal from './modal/reviewModal';
 import PopUp from '../common/modal';
 
 export default function Carpark(props) {
-  const navigation = useNavigation();
   const {route} = props;
   const carpark = route.params.carpark;
 
@@ -36,7 +35,7 @@ export default function Carpark(props) {
       <View style={topNav.topNavigation}>
         <TouchableOpacity
           onPress={() => {
-            navigation.goBack();
+            props.navigation.goBack();
           }}>
           <Text>Back</Text>
         </TouchableOpacity>
