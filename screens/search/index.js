@@ -19,7 +19,6 @@ export default function Search(props) {
   const [filterNo, setFilterNo] = useState('');
   const [filterAddr, setFilterAddr] = useState('');
   const filteredCarparks = filterCarpark(carparks, filterNo, filterAddr);
-  const navigation = useNavigation();
 
   return (
     <SafeAreaView style={styles.container}>
@@ -50,7 +49,9 @@ export default function Search(props) {
           return (
             <Pressable
               key={carpark._id}
-              onPress={() => navigation.navigate(carpark.park_number)}>
+              onPress={() =>
+                props.navigation.navigate(carpark.park_number, {search: true})
+              }>
               <View style={styles.carparkContainer}>
                 <Text>{carpark.park_number}</Text>
                 <Text>{carpark.park_address}</Text>

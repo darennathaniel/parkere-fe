@@ -3,7 +3,7 @@ import {NavigationContainer} from '@react-navigation/native';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import LoginScreen from './stacks/login';
 import Profile from './screens/profile';
-import Search from './screens/search';
+import SearchScreen from './stacks/search';
 import HomeScreen from './stacks/home';
 import {useDispatch, useSelector} from 'react-redux';
 
@@ -34,8 +34,8 @@ export default function AppRoute() {
           options={{headerShown: false, tabBarLabel: 'Home'}}
         />
         <Root.Screen
-          component={Search}
-          name="Search"
+          component={SearchScreen}
+          name="SearchScreen"
           options={{headerShown: false, tabBarLabel: 'Search'}}
         />
         {isLogged.value ? (

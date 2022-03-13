@@ -1,29 +1,20 @@
 import React, {useState, useEffect} from 'react';
-import {
-  View,
-  Text,
-  SafeAreaView,
-  Pressable,
-  TouchableOpacity,
-} from 'react-native';
+import {View, Text, SafeAreaView, TouchableOpacity} from 'react-native';
 import styles from './styles';
 import MapView, {Callout, Marker} from 'react-native-maps';
 import * as Location from 'expo-location';
-
-import {useNavigation} from '@react-navigation/core';
 import {useSelector} from 'react-redux';
 
-export default function Home() {
+export default function Home(props) {
   const [location, setLocation] = useState(null);
-  const navigation = useNavigation();
 
   const carparks = useSelector(state => state.carparks.data);
-
+  const carparkers = carparks.slice(0, 15);
   useEffect(() => {
     (async () => {
       const {status} = await Location.requestForegroundPermissionsAsync();
       if (status !== 'granted') {
-        navigation.navigate('SearchScreen');
+        props.navigation.navigate('Search');
         return;
       }
 
@@ -54,7 +45,7 @@ export default function Home() {
                 <Text>This is you!</Text>
               </Callout>
             </Marker>
-            {carparks.map(carpark => {
+            {carparkers.map(carpark => {
               return (
                 <Marker
                   key={carpark._id}
@@ -65,7 +56,9 @@ export default function Home() {
                   <Callout
                     style={{justifyContent: 'center', alignItems: 'center'}}>
                     <TouchableOpacity
-                      onPress={() => navigation.navigate(carpark.park_number)}>
+                      onPress={() =>
+                        props.navigation.navigate(carpark.park_number)
+                      }>
                       <Text>This is carpark {carpark.park_number}</Text>
                     </TouchableOpacity>
                   </Callout>
