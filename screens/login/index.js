@@ -12,13 +12,12 @@ import {useNavigation} from '@react-navigation/core';
 import {handleLogin} from './services';
 import {getToken, setToken} from '../common/authorization';
 import {useDispatch} from 'react-redux';
-import {setIsLogged} from '../../slices/isLoggedSlice';
+import {setLogin} from '../../slices/isLoggedSlice';
 
 import {AxiosInit} from '../../axios';
 
 import * as Google from 'expo-auth-session/providers/google';
 import PopUp from '../common/modal';
-import AsyncStorage from '@react-native-async-storage/async-storage';
 
 export default function Login(props) {
   const navigation = useNavigation();
@@ -48,7 +47,7 @@ export default function Login(props) {
         })
         .then(res => {
           setToken(res.data.token);
-          dispatch(setIsLogged({value: true, name: res.data.name}));
+          dispatch(setLogin({value: true, token: res.data.token}));
           navigation.navigate('Home');
         })
         .catch(err => {
@@ -87,7 +86,7 @@ export default function Login(props) {
                 password: password,
               });
               setToken(login.data.data.token);
-              dispatch(setIsLogged({value: true, name: username}));
+              dispatch(setLogin({value: true, token: login.data.data.token}));
               navigation.navigate('Home');
             } catch (err) {
               setShow(true);

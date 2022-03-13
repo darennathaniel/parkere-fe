@@ -14,7 +14,7 @@ import {handleRegister} from './services';
 import {setToken} from '../common/authorization';
 
 import {useDispatch} from 'react-redux';
-import {setIsLogged} from '../../slices/isLoggedSlice';
+import {setLogin} from '../../slices/isLoggedSlice';
 import PopUp from '../common/modal';
 
 export default function Register(props) {
@@ -81,7 +81,9 @@ export default function Register(props) {
                   password: password,
                 });
                 setToken(register.data.data.token);
-                dispatch(setIsLogged({value: true}));
+                dispatch(
+                  setLogin({value: true, token: register.data.data.token}),
+                );
                 navigation.navigate('Home');
               } catch (err) {
                 setErrorMsg(err.response.data.message);
