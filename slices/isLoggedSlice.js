@@ -1,8 +1,7 @@
 import {createSlice} from '@reduxjs/toolkit';
 
 import jwt_decode from 'jwt-decode';
-
-import {getFavorite} from './services';
+import {addFavorite, getFavorite} from './services';
 
 export const isLoggedSlice = createSlice({
   name: 'isLogged',
@@ -10,30 +9,28 @@ export const isLoggedSlice = createSlice({
     value: false,
     name: '',
     email: '',
-    favorites: [],
+    favorite: [],
   },
   reducers: {
     setLogin: (state = initialState, action) => {
       const token = action.payload.token;
-      let favorites = {favorite: []};
-      getFavorite(token)
-        .then(res => {
-          favorites.favorite = res.data.data;
-        })
-        .catch(err => console.log(err));
       const decoded_token = jwt_decode(token);
+      console.log(action.payload);
       return {
         ...decoded_token,
         value: action.payload.value,
-        ...favorites,
+        favorite: action.payload.favorite,
       };
     },
     setLogout: (state = initialState, action) => {
       return {...action.payload};
     },
+    setFavorite: (state = initialState, action) => {
+      return {...state, favorite: [...action.payload.favorite]};
+    },
   },
 });
 
-export const {setLogin, setLogout} = isLoggedSlice.actions;
+export const {setLogin, setLogout, setFavorite} = isLoggedSlice.actions;
 
 export default isLoggedSlice.reducer;

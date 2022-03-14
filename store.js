@@ -8,4 +8,6 @@ export default configureStore({
     isLogged: isLoggedReducer,
     carparks: carparksReducer,
   },
+  middleware: getDefaultMiddleware =>
+    getDefaultMiddleware({serializableCheck: false}),
 });

@@ -8,12 +8,14 @@ import {setLogout} from '../../slices/isLoggedSlice';
 export default function Profile() {
   const dispatch = useDispatch();
   const data = useSelector(state => state.isLogged);
-  console.log(data);
 
   return (
     <SafeAreaView style={styles.container}>
       <View>
         <Text>{data.name}</Text>
+        {data.favorite.map(favorite => {
+          return <Text key={favorite.favorite_id}>{favorite.carpark_id}</Text>;
+        })}
         <Button
           title="Logout"
           onPress={() => {

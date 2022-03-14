@@ -15,7 +15,7 @@ export default function SearchScreen(props) {
       <SearchStack.Screen
         name="Search"
         component={Search}
-        options={{headerShow: false}}
+        options={{headerShown: false}}
       />
       {carparks.map(carpark => {
         return (

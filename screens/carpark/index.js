@@ -1,4 +1,3 @@
-import {useNavigation} from '@react-navigation/core';
 import React, {useEffect, useState} from 'react';
 import {
   SafeAreaView,
@@ -13,15 +12,15 @@ import topNav from '../register/styles';
 import {getReviews, handleShow} from './services';
 import ReviewModal from './modal/reviewModal';
 import PopUp from '../common/modal';
+import {useSelector, useDispatch} from 'react-redux';
+import {setFavorite} from '../../slices/isLoggedSlice';
+import {addFavorite, getFavorite} from '../../slices/services';
 
 export default function Carpark(props) {
   const {route} = props;
+  const dispatch = useDispatch();
   const carpark = route.params.carpark;
-
-  const [reviews, setReviews] = useState([]);
-  const [show, setShow] = useState(false);
-  const [showErr, setShowErr] = useState(false);
-
+  const user = useSelector(state => state.isLogged);
   useEffect(() => {
     getReviews(carpark._id)
       .then(res => {
@@ -30,15 +29,42 @@ export default function Carpark(props) {
       .catch(err => console.log(err.response.data));
   }, []);
 
+  const [reviews, setReviews] = useState([]);
+  const [show, setShow] = useState(false);
+  const [showErr, setShowErr] = useState(false);
+
   return (
     <SafeAreaView style={styles.container}>
       <View style={topNav.topNavigation}>
-        <TouchableOpacity
-          onPress={() => {
-            props.navigation.goBack();
-          }}>
-          <Text>Back</Text>
-        </TouchableOpacity>
+        <View style={topNav.topLeftNavigation}>
+          <TouchableOpacity
+            onPress={() => {
+              props.navigation.goBack();
+            }}>
+            <Text>Back</Text>
+          </TouchableOpacity>
+        </View>
+        {user.value ? (
+          user.favorite.filter(e => e.carpark_id === carpark._id).length > 0 ? (
+            <Text>Already in favorites</Text>
+          ) : (
+            <View style={topNav.topRightNavigation}>
+              <TouchableOpacity
+                onPress={async () => {
+                  const favorite = await getFavorite();
+                  const addFav = await addFavorite(carpark._id);
+                  favorite.push(addFav);
+                  dispatch(
+                    setFavorite({value: carpark._id, favorite: favorite}),
+                  );
+                }}>
+                <Text>Add to Favorite</Text>
+              </TouchableOpacity>
+            </View>
+          )
+        ) : (
+          <></>
+        )}
       </View>
       <ScrollView contentContainerStyle={styles.scrollContainer}>
         <View style={styles.carparkContainer}>

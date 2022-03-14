@@ -10,7 +10,7 @@ import {
 import styles from './styles';
 import {useNavigation} from '@react-navigation/core';
 import {handleLogin} from './services';
-import {getToken, setToken} from '../common/authorization';
+import {setToken} from '../common/authorization';
 import {useDispatch} from 'react-redux';
 import {setLogin} from '../../slices/isLoggedSlice';
 
@@ -18,6 +18,7 @@ import {AxiosInit} from '../../axios';
 
 import * as Google from 'expo-auth-session/providers/google';
 import PopUp from '../common/modal';
+import {getFavorite} from '../../slices/services';
 
 export default function Login(props) {
   const navigation = useNavigation();
@@ -86,7 +87,14 @@ export default function Login(props) {
                 password: password,
               });
               setToken(login.data.data.token);
-              dispatch(setLogin({value: true, token: login.data.data.token}));
+              const favorites = await getFavorite();
+              dispatch(
+                setLogin({
+                  value: true,
+                  token: login.data.data.token,
+                  favorite: favorites,
+                }),
+              );
               navigation.navigate('Home');
             } catch (err) {
               setShow(true);

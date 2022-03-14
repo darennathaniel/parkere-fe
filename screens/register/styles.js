@@ -13,8 +13,14 @@ const styles = StyleSheet.create({
     borderRadius: 12,
   },
   topNavigation: {
-    position: 'relative',
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+  },
+  topLeftNavigation: {
     paddingLeft: 20,
+  },
+  topRightNavigation: {
+    paddingRight: 20,
   },
   content: {
     flex: 1,

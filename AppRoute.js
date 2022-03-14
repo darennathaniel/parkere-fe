@@ -1,4 +1,4 @@
-import React, {useState, useEffect, useMemo} from 'react';
+import React, {useEffect} from 'react';
 import {NavigationContainer} from '@react-navigation/native';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import LoginScreen from './stacks/login';
@@ -14,6 +14,7 @@ const Root = createBottomTabNavigator();
 
 export default function AppRoute() {
   const isLogged = useSelector(state => state.isLogged);
+  console.log(isLogged);
 
   const dispatch = useDispatch();
 
