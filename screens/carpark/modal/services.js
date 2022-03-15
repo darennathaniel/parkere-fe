@@ -10,6 +10,5 @@ export const handleSubmit = async data => {
       'auth-token': token,
     },
   });
-  console.log(response.data.data);
   return response.data.data;
 };

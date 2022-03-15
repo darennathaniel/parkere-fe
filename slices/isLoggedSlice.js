@@ -1,7 +1,6 @@
 import {createSlice} from '@reduxjs/toolkit';
 
 import jwt_decode from 'jwt-decode';
-import {addFavorite, getFavorite} from './services';
 
 export const isLoggedSlice = createSlice({
   name: 'isLogged',
@@ -15,7 +14,6 @@ export const isLoggedSlice = createSlice({
     setLogin: (state = initialState, action) => {
       const token = action.payload.token;
       const decoded_token = jwt_decode(token);
-      console.log(action.payload);
       return {
         ...decoded_token,
         value: action.payload.value,

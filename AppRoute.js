@@ -14,7 +14,6 @@ const Root = createBottomTabNavigator();
 
 export default function AppRoute() {
   const isLogged = useSelector(state => state.isLogged);
-  console.log(isLogged);
 
   const dispatch = useDispatch();
 
