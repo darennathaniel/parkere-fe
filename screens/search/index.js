@@ -1,18 +1,18 @@
-import {useNavigation} from '@react-navigation/core';
-import React, {useEffect, useState} from 'react';
+import React, {useState} from 'react';
 import {
   Linking,
   SafeAreaView,
   Text,
   View,
   ScrollView,
-  Pressable,
   TextInput,
   Image,
+  TouchableOpacity,
 } from 'react-native';
 import {useSelector} from 'react-redux';
 import {filterCarpark, handleChangeText} from './services';
 import styles from './styles';
+import typography from '../common/typography';
 
 export default function Search(props) {
   const carparks = useSelector(state => state.carparks.data);
@@ -47,16 +47,17 @@ export default function Search(props) {
       <ScrollView style={styles.scrollContainer}>
         {filteredCarparks.map(carpark => {
           return (
-            <Pressable
+            <TouchableOpacity
               key={carpark._id}
               onPress={() =>
                 props.navigation.navigate(carpark.park_number, {search: true})
               }>
               <View style={styles.carparkContainer}>
-                <Text>{carpark.park_number}</Text>
-                <Text>{carpark.park_address}</Text>
+                <Text style={typography.text}>
+                  {carpark.park_address} ({carpark.park_number})
+                </Text>
               </View>
-            </Pressable>
+            </TouchableOpacity>
           );
         })}
       </ScrollView>

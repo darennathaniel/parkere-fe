@@ -5,6 +5,7 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
+    backgroundColor: 'white',
   },
   scrollContainer: {
     flex: 1,
@@ -12,13 +13,12 @@ const styles = StyleSheet.create({
   },
   carparkContainer: {
     flex: 1,
-    alignSelf: 'stretch',
-    flexDirection: 'row',
-    justifyContent: 'space-evenly',
+    padding: 13,
+    backgroundColor: '#F2F0F0',
+    marginTop: 10,
   },
   searchContainer: {
     height: '13%',
-    backgroundColor: '#eeeeee',
     width: '100%',
     justifyContent: 'space-evenly',
     flexDirection: 'row',
