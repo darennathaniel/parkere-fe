@@ -45,7 +45,7 @@ export default function Carpark(props) {
           </TouchableOpacity>
         </View>
         {user.value ? (
-          user.favorite.filter(e => e.carpark_id === carpark._id).length > 0 ? (
+          user.favorite.filter(e => e._id === carpark._id).length > 0 ? (
             <Text>Already in favorites</Text>
           ) : (
             <View style={topNav.topRightNavigation}>
