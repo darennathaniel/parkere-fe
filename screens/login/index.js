@@ -46,9 +46,16 @@ export default function Login(props) {
         .get('/user/google', {
           headers: {Authorization: 'Bearer ' + authentication.accessToken},
         })
-        .then(res => {
+        .then(async res => {
           setToken(res.data.token);
-          dispatch(setLogin({value: true, token: res.data.token}));
+          const favorites = await getFavorite();
+          dispatch(
+            setLogin({
+              value: true,
+              token: res.data.token,
+              favorite: favorites,
+            }),
+          );
           navigation.navigate('Home');
         })
         .catch(err => {
