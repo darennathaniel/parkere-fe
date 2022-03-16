@@ -1,15 +1,24 @@
 import React, {useState, useEffect} from 'react';
-import {View, Text, SafeAreaView, TouchableOpacity} from 'react-native';
+import {
+  View,
+  Text,
+  SafeAreaView,
+  TouchableOpacity,
+  ActivityIndicator,
+} from 'react-native';
 import styles from './styles';
 import MapView, {Callout, Marker} from 'react-native-maps';
 import * as Location from 'expo-location';
-import {useSelector} from 'react-redux';
+import {useDispatch, useSelector} from 'react-redux';
+import {getWeather} from './services';
+import {forecastAlert} from './alert';
+import {setFilteredCarparks} from '../../slices/carparkSlice';
 
 export default function Home(props) {
   const [location, setLocation] = useState(null);
+  const dispatch = useDispatch();
 
   const carparks = useSelector(state => state.carparks.data);
-  const carparkers = carparks.slice(0, 15);
   useEffect(() => {
     (async () => {
       const {status} = await Location.requestForegroundPermissionsAsync();
@@ -20,6 +29,16 @@ export default function Home(props) {
 
       let currLocation = await Location.getCurrentPositionAsync({});
       setLocation(currLocation);
+
+      const response = await getWeather(
+        currLocation.coords.latitude,
+        currLocation.coords.longitude,
+      );
+      forecastAlert(
+        'It is stated that it will rain, let us find a sheltered carpark!',
+        dispatch,
+        setFilteredCarparks,
+      );
     })();
   }, []);
 
@@ -45,7 +64,7 @@ export default function Home(props) {
                 <Text>This is you!</Text>
               </Callout>
             </Marker>
-            {carparkers.map(carpark => {
+            {carparks.map(carpark => {
               return (
                 <Marker
                   key={carpark._id}
@@ -59,7 +78,9 @@ export default function Home(props) {
                       onPress={() =>
                         props.navigation.navigate(carpark.park_number)
                       }>
-                      <Text>This is carpark {carpark.park_number}</Text>
+                      <Text>
+                        {carpark.park_address} ({carpark.park_number})
+                      </Text>
                     </TouchableOpacity>
                   </Callout>
                 </Marker>
@@ -67,7 +88,7 @@ export default function Home(props) {
             })}
           </MapView>
         ) : (
-          <Text>Null</Text>
+          <ActivityIndicator size="large" />
         )}
       </View>
     </SafeAreaView>

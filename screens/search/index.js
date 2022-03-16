@@ -1,6 +1,5 @@
-import React, {useState} from 'react';
+import React, {useRef, useState} from 'react';
 import {
-  Linking,
   SafeAreaView,
   Text,
   View,
@@ -8,6 +7,7 @@ import {
   TextInput,
   Image,
   TouchableOpacity,
+  Button,
 } from 'react-native';
 import {useSelector} from 'react-redux';
 import {filterCarpark, handleChangeText} from './services';
@@ -19,6 +19,11 @@ export default function Search(props) {
   const [filterNo, setFilterNo] = useState('');
   const [filterAddr, setFilterAddr] = useState('');
   const filteredCarparks = filterCarpark(carparks, filterNo, filterAddr);
+  const ref = useRef(null);
+
+  const handleTop = () => {
+    ref.current.scrollTo({x: 0, y: 0, animated: true});
+  };
 
   return (
     <SafeAreaView style={styles.container}>
@@ -44,7 +49,7 @@ export default function Search(props) {
           />
         </View>
       </View>
-      <ScrollView style={styles.scrollContainer}>
+      <ScrollView style={styles.scrollContainer} ref={ref}>
         {filteredCarparks.map(carpark => {
           return (
             <TouchableOpacity
@@ -63,27 +68,4 @@ export default function Search(props) {
       </ScrollView>
     </SafeAreaView>
   );
-
-  // const latitude = '30.3753';
-  // const longitude = '69.3451';
-  // const openMapDirection = () => {
-  //   const url = Platform.select({
-  //     ios: `comgooglemaps://?center=${latitude},${longitude}&q=${latitude},${longitude}&zoom=14&views=traffic"`,
-  //     android: `geo://?q=${latitude},${longitude}`,
-  //   });
-  //   Linking.canOpenURL(url)
-  //     .then(supported => {
-  //       if (supported) {
-  //         return Linking.openURL(url);
-  //       } else {
-  //         const browser_url = `https://www.google.de/maps/@${latitude},${longitude}`;
-  //         return Linking.openURL(browser_url);
-  //       }
-  //     })
-  //     .catch(() => {
-  //       if (Platform.OS === 'ios') {
-  //         Linking.openURL(`maps://?q=${latitude},${longitude}`);
-  //       }
-  //     });
-  // };
 }

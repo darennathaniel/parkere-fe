@@ -9,9 +9,15 @@ export const carparksSlice = createSlice({
     setCarparks: (state, action) => {
       return {...action.payload};
     },
+    setFilteredCarparks: (state = initialState, action) => {
+      const filtered = state.data.filter(
+        e => e.building_type !== 'SURFACE CAR PARK',
+      );
+      return {data: filtered};
+    },
   },
 });
 
-export const {setCarparks} = carparksSlice.actions;
+export const {setCarparks, setFilteredCarparks} = carparksSlice.actions;
 
 export default carparksSlice.reducer;
