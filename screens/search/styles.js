@@ -9,13 +9,15 @@ const styles = StyleSheet.create({
   },
   scrollContainer: {
     flex: 1,
-    width: '100%',
+    width: '95%',
+    height: '90%',
   },
   carparkContainer: {
     flex: 1,
     padding: 13,
     backgroundColor: '#F2F0F0',
     marginTop: 10,
+    width: '100%',
   },
   searchContainer: {
     height: '13%',
@@ -36,9 +38,6 @@ const styles = StyleSheet.create({
     height: '40%',
     backgroundColor: 'white',
     paddingHorizontal: 15,
-  },
-  scrollContainer: {
-    height: '90%',
   },
   searchImage: {
     height: 30,

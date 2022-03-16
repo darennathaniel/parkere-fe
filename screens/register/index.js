@@ -15,7 +15,7 @@ import {setToken} from '../common/authorization';
 
 import {useDispatch} from 'react-redux';
 import {setLogin} from '../../slices/isLoggedSlice';
-import PopUp from '../common/modal';
+import PopUp from '../common/errorModal';
 
 export default function Register(props) {
   const navigation = useNavigation();

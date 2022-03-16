@@ -12,10 +12,10 @@ import {
 import {Rating} from 'react-native-ratings';
 
 import styles from '../styles';
-import button from '../../common/modal/styles';
+import button from '../../common/errorModal/styles';
 import {handleSubmit} from './services';
 
-import PopUp from '../../common/modal';
+import PopUp from '../../common/errorModal';
 
 export default function ReviewModal(props) {
   const {show, setShow, title, carparkId, reviews, setReviews} = props;

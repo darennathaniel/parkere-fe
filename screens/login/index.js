@@ -17,7 +17,7 @@ import {setLogin} from '../../slices/isLoggedSlice';
 import {AxiosInit} from '../../axios';
 
 import * as Google from 'expo-auth-session/providers/google';
-import PopUp from '../common/modal';
+import PopUp from '../common/errorModal';
 import {getFavorite} from '../../slices/services';
 
 export default function Login(props) {
