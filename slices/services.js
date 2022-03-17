@@ -38,3 +38,24 @@ export const addFavorite = async carpark_id => {
     console.log(err.response.data);
   }
 };
+
+export const delFavorite = async carpark_id => {
+  try {
+    const token = await getToken();
+    const config = {
+      headers: {
+        'auth-token': token,
+      },
+    };
+    const response = await parkereAxios.post(
+      '/fav/deleteFavorite',
+      {
+        carpark_id: carpark_id,
+      },
+      config,
+    );
+    return response.data.data;
+  } catch (err) {
+    console.log(err.response.data);
+  }
+};

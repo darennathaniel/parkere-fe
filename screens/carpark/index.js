@@ -19,14 +19,14 @@ import ReviewModal from './reviewModal';
 import PopUp from '../common/errorModal';
 import {useSelector, useDispatch} from 'react-redux';
 import {setFavorite} from '../../slices/isLoggedSlice';
-import {addFavorite, getFavorite} from '../../slices/services';
+import {addFavorite, delFavorite, getFavorite} from '../../slices/services';
 
 export default function Carpark(props) {
   const {route} = props;
   const dispatch = useDispatch();
   const carpark = route.params.carpark;
-  console.log(carpark);
   const user = useSelector(state => state.isLogged);
+  const carparks = useSelector(state => state.carparks);
   useEffect(() => {
     getReviews(carpark._id)
       .then(res => {
@@ -34,13 +34,16 @@ export default function Carpark(props) {
       })
       .catch(err => console.log(err.response.data));
 
-    getAvailability().then(res => {
-      const data = res.data.items[0].carpark_data.filter(
-        e => e.carpark_number === carpark.park_number,
-      )[0].carpark_info[0];
-      setAvailable(data.lots_available);
-      setCapacity(data.total_lots);
-    });
+    getAvailability()
+      .then(res => {
+        const data = res.data.items[0].carpark_data.filter(
+          e => e.carpark_number === carpark.park_number,
+        )[0].carpark_info[0];
+        setAvailable(data.lots_available);
+        setCapacity(data.total_lots);
+      })
+      .catch(err => console.log(err));
+    return () => {};
   }, []);
 
   const [reviews, setReviews] = useState([]);
@@ -62,7 +65,34 @@ export default function Carpark(props) {
         </View>
         {user.value ? (
           user.favorite.filter(e => e._id === carpark._id).length > 0 ? (
-            <Text>Already in favorites</Text>
+            <View style={topNav.topRightNavigation}>
+              <TouchableOpacity
+                onPress={async () => {
+                  const favorite = await getFavorite();
+                  const delFav = await delFavorite(carpark._id);
+                  const filteredFavorite = favorite.filter(
+                    e => e._id !== carpark._id,
+                  );
+                  if (carparks.filtered) {
+                    const filterData = filteredFavorite.filter(e =>
+                      carparks.data.some(f => f._id === e._id),
+                    );
+                    dispatch(
+                      setFavorite({
+                        favorite: filterData,
+                      }),
+                    );
+                  } else {
+                    dispatch(
+                      setFavorite({
+                        favorite: filteredFavorite,
+                      }),
+                    );
+                  }
+                }}>
+                <Text>Delete From Favorite</Text>
+              </TouchableOpacity>
+            </View>
           ) : (
             <View style={topNav.topRightNavigation}>
               <TouchableOpacity
@@ -70,9 +100,22 @@ export default function Carpark(props) {
                   const favorite = await getFavorite();
                   const addFav = await addFavorite(carpark._id);
                   favorite.push(addFav);
-                  dispatch(
-                    setFavorite({value: carpark._id, favorite: favorite}),
-                  );
+                  if (carparks.filtered) {
+                    const filterData = favorite.filter(e =>
+                      carparks.data.some(f => f._id === e._id),
+                    );
+                    dispatch(
+                      setFavorite({
+                        favorite: filterData,
+                      }),
+                    );
+                  } else {
+                    dispatch(
+                      setFavorite({
+                        favorite: favorite,
+                      }),
+                    );
+                  }
                 }}>
                 <Text>Add to Favorite</Text>
               </TouchableOpacity>
