@@ -11,7 +11,7 @@ import styles from './styles';
 import {useNavigation} from '@react-navigation/core';
 import {handleLogin} from './services';
 import {setToken} from '../common/authorization';
-import {useDispatch} from 'react-redux';
+import {useDispatch, useSelector} from 'react-redux';
 import {setLogin} from '../../slices/isLoggedSlice';
 
 import {AxiosInit} from '../../axios';
@@ -38,6 +38,8 @@ export default function Login(props) {
 
   const dispatch = useDispatch();
 
+  const carparks = useSelector(state => state.carparks);
+
   useEffect(() => {
     if (response?.type === 'success') {
       const {authentication} = response;
@@ -49,13 +51,24 @@ export default function Login(props) {
         .then(async res => {
           setToken(res.data.token);
           const favorites = await getFavorite();
-          dispatch(
-            setLogin({
-              value: true,
-              token: res.data.token,
-              favorite: favorites,
-            }),
-          );
+          if (carparks.filtered) {
+            const filterData = favorites.filter(e => carparks.data.includes(e));
+            dispatch(
+              setLogin({
+                value: true,
+                token: res.data.token,
+                favorite: filterData,
+              }),
+            );
+          } else {
+            dispatch(
+              setLogin({
+                value: true,
+                token: res.data.token,
+                favorite: favorites,
+              }),
+            );
+          }
           navigation.navigate('Home');
         })
         .catch(err => {
@@ -95,13 +108,26 @@ export default function Login(props) {
               });
               setToken(login.data.data.token);
               const favorites = await getFavorite();
-              dispatch(
-                setLogin({
-                  value: true,
-                  token: login.data.data.token,
-                  favorite: favorites,
-                }),
-              );
+              if (carparks.filtered) {
+                const filterData = favorites.filter(e =>
+                  carparks.data.some(f => f._id === e._id),
+                );
+                dispatch(
+                  setLogin({
+                    value: true,
+                    token: login.data.data.token,
+                    favorite: filterData,
+                  }),
+                );
+              } else {
+                dispatch(
+                  setLogin({
+                    value: true,
+                    token: login.data.data.token,
+                    favorite: favorites,
+                  }),
+                );
+              }
               navigation.navigate('Home');
             } catch (err) {
               setShow(true);

@@ -4,6 +4,7 @@ export const carparksSlice = createSlice({
   name: 'carparks',
   initialState: {
     data: [],
+    filtered: false,
   },
   reducers: {
     setCarparks: (state, action) => {
@@ -13,7 +14,7 @@ export const carparksSlice = createSlice({
       const filtered = state.data.filter(
         e => e.building_type !== 'SURFACE CAR PARK',
       );
-      return {data: filtered};
+      return {data: filtered, filtered: true};
     },
   },
 });

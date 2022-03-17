@@ -10,7 +10,7 @@ import styles from './styles';
 import MapView, {Callout, Marker} from 'react-native-maps';
 import * as Location from 'expo-location';
 import {useDispatch, useSelector} from 'react-redux';
-import {getWeather} from './services';
+import {alertRain} from './services';
 import {forecastAlert} from './alert';
 import {setFilteredCarparks} from '../../slices/carparkSlice';
 
@@ -30,15 +30,7 @@ export default function Home(props) {
       let currLocation = await Location.getCurrentPositionAsync({});
       setLocation(currLocation);
 
-      const response = await getWeather(
-        currLocation.coords.latitude,
-        currLocation.coords.longitude,
-      );
-      forecastAlert(
-        'It is stated that it will rain, let us find a sheltered carpark!',
-        dispatch,
-        setFilteredCarparks,
-      );
+      alertRain(dispatch, setFilteredCarparks, forecastAlert, currLocation);
     })();
   }, []);
 
