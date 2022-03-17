@@ -2,7 +2,7 @@ import React, {useEffect} from 'react';
 import {NavigationContainer} from '@react-navigation/native';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import LoginScreen from './stacks/login';
-import Profile from './screens/profile';
+import ProfileScreen from './stacks/profile';
 import SearchScreen from './stacks/search';
 import HomeScreen from './stacks/home';
 import {useDispatch, useSelector} from 'react-redux';
@@ -40,8 +40,8 @@ export default function AppRoute() {
         />
         {isLogged.value ? (
           <Root.Screen
-            component={Profile}
-            name="Profile"
+            component={ProfileScreen}
+            name="ProfileScreen"
             options={{headerShown: false, tabBarLabel: isLogged.name}}
           />
         ) : (
