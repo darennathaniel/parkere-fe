@@ -13,9 +13,11 @@ import styles from './styles';
 import {handleRegister} from './services';
 import {setToken} from '../common/authorization';
 
-import {useDispatch} from 'react-redux';
+import {useDispatch, useSelector} from 'react-redux';
 import {setLogin} from '../../slices/isLoggedSlice';
 import PopUp from '../common/errorModal';
+
+import {getFavorite} from '../../slices/services';
 
 export default function Register(props) {
   const navigation = useNavigation();
@@ -28,6 +30,8 @@ export default function Register(props) {
   const [show, setShow] = useState(false);
 
   const dispatch = useDispatch();
+
+  const carparks = useSelector(state => state.carparks);
 
   return (
     <SafeAreaView style={styles.container}>
@@ -81,9 +85,27 @@ export default function Register(props) {
                   password: password,
                 });
                 setToken(register.data.data.token);
-                dispatch(
-                  setLogin({value: true, token: register.data.data.token}),
-                );
+                const favorites = await getFavorite();
+                if (carparks.filtered) {
+                  const filterData = favorites.filter(e =>
+                    carparks.data.includes(e),
+                  );
+                  dispatch(
+                    setLogin({
+                      value: true,
+                      token: register.data.data.token,
+                      favorite: filterData,
+                    }),
+                  );
+                } else {
+                  dispatch(
+                    setLogin({
+                      value: true,
+                      token: register.data.data.token,
+                      favorite: favorites,
+                    }),
+                  );
+                }
                 navigation.navigate('Home');
               } catch (err) {
                 setErrorMsg(err.response.data.message);
