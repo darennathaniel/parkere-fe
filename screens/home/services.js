@@ -22,7 +22,7 @@ export const alertRain = (
     .then(res => {
       const weather = {
         rain: ['Rain', 'Showers'],
-        cloudy: ['Cloudy', 'Hazy', 'Windy', 'Mist'],
+        cloudy: ['Hazy', 'Windy', 'Mist'],
       };
       if (weather.rain.filter(e => res.forecast.includes(e)).length > 0) {
         forecastAlert(
@@ -41,4 +41,21 @@ export const alertRain = (
       }
     })
     .catch(err => console.log(err));
+};
+
+export const centerView = (ref, location) => {
+  const data = {
+    altitude: 2232,
+    center: {
+      latitude: location.coords.latitude,
+      longitude: location.coords.longitude,
+    },
+    heading: 0,
+    pitch: 0,
+    zoom: 32,
+  };
+  const duration = {
+    duration: 500,
+  };
+  ref.current.animateCamera(data, duration);
 };

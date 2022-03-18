@@ -1,22 +1,24 @@
-import React, {useState, useEffect} from 'react';
+import React, {useState, useEffect, useRef} from 'react';
 import {
   View,
   Text,
   SafeAreaView,
   TouchableOpacity,
   ActivityIndicator,
+  Image,
 } from 'react-native';
 import styles from './styles';
 import MapView, {Callout, Marker} from 'react-native-maps';
 import * as Location from 'expo-location';
 import {useDispatch, useSelector} from 'react-redux';
-import {alertRain} from './services';
+import {alertRain, centerView} from './services';
 import {forecastAlert} from './alert';
 import {setFilteredCarparks} from '../../slices/carparkSlice';
 
 export default function Home(props) {
   const [location, setLocation] = useState(null);
   const dispatch = useDispatch();
+  const ref = useRef(null);
 
   const carparks = useSelector(state => state.carparks.data);
   useEffect(() => {
@@ -40,11 +42,12 @@ export default function Home(props) {
         {location ? (
           <MapView
             style={styles.map}
+            ref={ref}
             initialRegion={{
               latitude: location.coords.latitude,
               longitude: location.coords.longitude,
-              latitudeDelta: 0.05,
-              longitudeDelta: 0.05,
+              latitudeDelta: 0.005,
+              longitudeDelta: 0.005,
             }}>
             <Marker
               coordinate={{
@@ -82,6 +85,18 @@ export default function Home(props) {
         ) : (
           <ActivityIndicator size="large" />
         )}
+        <View style={styles.centerButton}>
+          <TouchableOpacity
+            style={styles.circleBg}
+            onPress={() => {
+              centerView(ref, location);
+            }}>
+            <Image
+              source={require('./assets/location.png')}
+              style={styles.locationImage}
+            />
+          </TouchableOpacity>
+        </View>
       </View>
     </SafeAreaView>
   );
