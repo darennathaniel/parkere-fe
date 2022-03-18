@@ -9,6 +9,8 @@ import {
 } from 'react-native';
 import {useNavigation} from '@react-navigation/core';
 import styles from './styles';
+import loginStyles from '../login/styles';
+import typography from '../common/typography';
 
 import {handleRegister} from './services';
 import {setToken} from '../common/authorization';
@@ -35,7 +37,7 @@ export default function Register(props) {
 
   return (
     <SafeAreaView style={styles.container}>
-      <View style={styles.topNavigation}>
+      <View style={styles.topLeftNavigation}>
         <TouchableOpacity
           onPress={() => {
             navigation.goBack();
@@ -45,7 +47,7 @@ export default function Register(props) {
       </View>
       <View style={styles.content}>
         <View>
-          <Text>Sign up</Text>
+          <Text style={[typography.text, loginStyles.titleText]}>Sign up</Text>
         </View>
         <View>
           <TextInput
@@ -74,9 +76,8 @@ export default function Register(props) {
             placeholder="Password"
             autoCapitalize="none"
           />
-          <Button
-            title="Register"
-            underlayColor="#fff"
+          <TouchableOpacity
+            style={loginStyles.loginButton}
             onPress={async () => {
               try {
                 const register = await handleRegister({
@@ -111,7 +112,11 @@ export default function Register(props) {
                 setErrorMsg(err.response.data.message);
                 setShow(true);
               }
-            }}></Button>
+            }}>
+            <Text style={[typography.text, loginStyles.loginText]}>
+              Register
+            </Text>
+          </TouchableOpacity>
         </View>
       </View>
       <PopUp show={show} setShow={setShow} message={errorMsg} />

@@ -6,6 +6,7 @@ import {
   TouchableOpacity,
   TextInput,
   Button,
+  Image,
 } from 'react-native';
 import styles from './styles';
 import {useNavigation} from '@react-navigation/core';
@@ -13,6 +14,7 @@ import {handleLogin} from './services';
 import {setToken} from '../common/authorization';
 import {useDispatch, useSelector} from 'react-redux';
 import {setLogin} from '../../slices/isLoggedSlice';
+import typography from '../common/typography';
 
 import {AxiosInit} from '../../axios';
 
@@ -80,8 +82,8 @@ export default function Login(props) {
 
   return (
     <SafeAreaView style={styles.container}>
-      <View>
-        <Text>Sign in</Text>
+      <View style={styles.titleContainer}>
+        <Text style={[typography.text, styles.titleText]}>Sign in</Text>
       </View>
       <View style={styles.inputContainer}>
         <TextInput
@@ -97,9 +99,17 @@ export default function Login(props) {
           placeholder="Password"
           autoCapitalize="none"
           secureTextEntry={true}></TextInput>
-        <Button
-          title="Login"
-          underlayColor="#fff"
+        <View style={styles.registerLine}>
+          <Text>Haven't </Text>
+          <TouchableOpacity
+            onPress={() => {
+              navigation.navigate('Register');
+            }}>
+            <Text style={{color: 'navy'}}>Registered?</Text>
+          </TouchableOpacity>
+        </View>
+        <TouchableOpacity
+          style={styles.loginButton}
           onPress={async () => {
             try {
               const login = await handleLogin({
@@ -133,21 +143,25 @@ export default function Login(props) {
               setShow(true);
               setErrorMsg(err.response.data.message);
             }
-          }}></Button>
-        <Button
-          title="Google Login"
+          }}>
+          <Text style={[typography.text, styles.loginText]}>Login</Text>
+        </TouchableOpacity>
+        <TouchableOpacity
+          style={styles.googleContainer}
           onPress={() => {
             promptAsync();
-          }}
-        />
-      </View>
-      <View style={styles.registerLine}>
-        <Text>Haven't </Text>
-        <TouchableOpacity
-          onPress={() => {
-            navigation.navigate('Register');
           }}>
-          <Text style={{color: 'navy'}}>Registered?</Text>
+          <View style={styles.googleImgContainer}>
+            <Image
+              source={require('./assets/google.png')}
+              style={styles.googleImg}
+            />
+          </View>
+          <View style={styles.googleTextContainer}>
+            <Text style={[typography.text, styles.googleText]}>
+              Sign in / up with Google
+            </Text>
+          </View>
         </TouchableOpacity>
       </View>
       <PopUp show={show} setShow={setShow} message={errorMsg} />
