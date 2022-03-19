@@ -20,6 +20,7 @@ import PopUp from '../common/errorModal';
 import {useSelector, useDispatch} from 'react-redux';
 import {setFavorite} from '../../slices/isLoggedSlice';
 import {addFavorite, delFavorite, getFavorite} from '../../slices/services';
+import typography from '../common/typography';
 
 export default function Carpark(props) {
   const {route} = props;
@@ -54,7 +55,7 @@ export default function Carpark(props) {
 
   return (
     <SafeAreaView style={styles.container}>
-      <View style={topNav.topNavigation}>
+      <View style={[topNav.topNavigation, {backgroundColor: 'white'}]}>
         <View style={topNav.topLeftNavigation}>
           <TouchableOpacity
             onPress={() => {
@@ -156,22 +157,51 @@ export default function Carpark(props) {
           </View>
         </View>
         <View style={styles.reviewContainer}>
-          <Text>Review</Text>
-          <TouchableOpacity onPress={() => handleShow(setShow, setShowErr)}>
-            <Image
-              source={require('./assets/plus.png')}
-              style={styles.plusImage}
-            />
-          </TouchableOpacity>
-          {reviews.map(review => {
-            return (
-              <View style={{flexDirection: 'row'}} key={review.review_id}>
-                <Text>{review.username} </Text>
-                <Text>{review.rating} </Text>
-                <Text>{review.comment}</Text>
-              </View>
-            );
-          })}
+          <View style={styles.reviewTitleContainer}>
+            <Text style={[typography.text, styles.reviewTitleText]}>
+              Reviews
+            </Text>
+            <TouchableOpacity
+              style={styles.addButton}
+              onPress={() => handleShow(setShow, setShowErr)}>
+              {/* <Image
+                source={require('./assets/plus.png')}
+                style={styles.plusImage}
+              /> */}
+              <Text>Add Review</Text>
+            </TouchableOpacity>
+          </View>
+          <View style={styles.reviewScrollView}>
+            <ScrollView style={styles.reviewContentScrollContainer}>
+              {reviews.map(review => {
+                return (
+                  <View
+                    style={styles.reviewTextContainer}
+                    key={review.review_id}>
+                    <View style={styles.reviewTextUser}>
+                      <View>
+                        <Text style={[typography.text, styles.reviewUser]}>
+                          {review.username}
+                        </Text>
+                      </View>
+                      <View style={styles.reviewRating}>
+                        <Text>{review.rating}</Text>
+                        <Image
+                          style={styles.starImage}
+                          source={require('./assets/star.png')}
+                        />
+                      </View>
+                    </View>
+                    <View style={styles.reviewTextComment}>
+                      <Text style={[typography.text, styles.reviewComment]}>
+                        {review.comment}
+                      </Text>
+                    </View>
+                  </View>
+                );
+              })}
+            </ScrollView>
+          </View>
         </View>
       </ScrollView>
       <ReviewModal

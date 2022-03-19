@@ -17,6 +17,8 @@ import {handleSubmit} from './services';
 
 import PopUp from '../../common/errorModal';
 
+import typography from '../../common/typography';
+
 export default function ReviewModal(props) {
   const {show, setShow, title, carparkId, reviews, setReviews} = props;
 
@@ -40,7 +42,9 @@ export default function ReviewModal(props) {
           </View>
           <View>
             <View />
-            <Text>{title} Review</Text>
+            <Text style={[typography.text, styles.reviewTitleModal]}>
+              {title} Review
+            </Text>
           </View>
           <View>
             <Rating
@@ -49,9 +53,9 @@ export default function ReviewModal(props) {
               jumpValue={1}
             />
           </View>
-          <View style={styles.reviewTextContainer}>
+          <View style={styles.reviewTextContainerModal}>
             <TextInput
-              style={styles.reviewText}
+              style={styles.reviewTextModal}
               multiline
               onChangeText={e => {
                 setComment(e);

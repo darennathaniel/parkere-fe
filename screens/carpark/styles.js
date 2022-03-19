@@ -3,18 +3,20 @@ import {StyleSheet} from 'react-native';
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+    backgroundColor: 'white',
   },
   scrollContainer: {
-    minHeight: '200%',
+    height: '190%',
+    backgroundColor: 'white',
   },
   carparkContainer: {
-    flex: 1,
+    height: '50%',
     justifyContent: 'center',
     alignItems: 'center',
   },
   reviewContainer: {
-    flex: 1,
-    justifyContent: 'center',
+    height: '50%',
+    justifyContent: 'flex-end',
     alignItems: 'center',
   },
   plusImage: {
@@ -47,17 +49,6 @@ const styles = StyleSheet.create({
     justifyContent: 'space-evenly',
     width: '80%',
   },
-  reviewTextContainer: {
-    width: '100%',
-    height: '40%',
-  },
-  reviewText: {
-    width: '100%',
-    height: '100%',
-    borderWidth: 1,
-    borderRadius: 20,
-    padding: 15,
-  },
   xButtonContainer: {
     position: 'absolute',
     alignSelf: 'flex-end',
@@ -66,6 +57,80 @@ const styles = StyleSheet.create({
     height: 50,
     justifyContent: 'center',
     top: 0,
+  },
+  reviewTitleContainer: {
+    height: '20%',
+    width: '100%',
+    padding: 20,
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+  },
+  reviewTitleText: {
+    fontSize: 37,
+    fontWeight: '700',
+  },
+  reviewScrollView: {
+    height: '80%',
+    width: '80%',
+    shadowColor: '#171717',
+    shadowOffset: {width: -2, height: 4},
+    shadowOpacity: 0.2,
+    shadowRadius: 3,
+  },
+  reviewContentScrollContainer: {
+    width: '100%',
+  },
+  reviewTextContainer: {
+    width: '100%',
+    height: 100,
+    backgroundColor: '#F2F0F0',
+    padding: 15,
+    marginBottom: 1.5,
+  },
+  reviewTextUser: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    height: 20,
+  },
+  reviewTextComment: {
+    minHeight: 100,
+  },
+  reviewUser: {
+    fontSize: 15,
+    fontWeight: '700',
+  },
+  reviewRating: {
+    flexDirection: 'row',
+    alignItems: 'center',
+  },
+  reviewComment: {
+    fontSize: 13,
+  },
+  addButton: {
+    borderWidth: 1,
+    borderRadius: 15,
+    padding: 5,
+  },
+  starImage: {
+    maxWidth: 10,
+    maxHeight: 10,
+  },
+  reviewTextContainerModal: {
+    width: '100%',
+    height: '40%',
+  },
+  reviewTextModal: {
+    width: '100%',
+    height: '100%',
+    borderWidth: 1,
+    borderRadius: 20,
+    padding: 15,
+  },
+  reviewTitleModal: {
+    fontSize: 20,
+    fontWeight: '700',
   },
 });
 
