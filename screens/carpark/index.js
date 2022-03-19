@@ -40,8 +40,10 @@ export default function Carpark(props) {
         const data = res.data.items[0].carpark_data.filter(
           e => e.carpark_number === carpark.park_number,
         )[0].carpark_info[0];
-        setAvailable(data.lots_available);
-        setCapacity(data.total_lots);
+        if (data) {
+          setAvailable(data.lots_available);
+          setCapacity(data.total_lots);
+        }
       })
       .catch(err => console.log(err));
     return () => {};
@@ -52,7 +54,6 @@ export default function Carpark(props) {
   const [capacity, setCapacity] = useState(0);
   const [show, setShow] = useState(false);
   const [showErr, setShowErr] = useState(false);
-
   return (
     <SafeAreaView style={styles.container}>
       <View style={[topNav.topNavigation, {backgroundColor: 'white'}]}>
@@ -128,32 +129,122 @@ export default function Carpark(props) {
       </View>
       <ScrollView contentContainerStyle={styles.scrollContainer}>
         <View style={styles.carparkContainer}>
-          <View>
-            <Text>{carpark.park_number}</Text>
-          </View>
-          <View>
-            <Text>
-              {available}/{capacity}
+          <View style={styles.carparkTitleContainer}>
+            <Text style={[typography.text, styles.carparkNumberText]}>
+              {carpark.park_number}
+              <Text style={{fontSize: 15}}>({carpark.building_type})</Text>
             </Text>
           </View>
-          <View>
-            <Text>{carpark.park_address}</Text>
+          <View style={styles.carparkContentContainer}>
+            <Text style={[typography.text, styles.carparkContentText]}>
+              Available Slots:{' '}
+              {available === 0 && capacity === 0 ? (
+                <Text>No information</Text>
+              ) : (
+                <Text>
+                  {available}/{capacity}
+                </Text>
+              )}
+            </Text>
           </View>
-          <View>
-            <Text>{carpark.rate}</Text>
+          <View style={styles.carparkContentContainer}>
+            <Text style={[typography.text, styles.carparkContentText]}>
+              Address
+            </Text>
+            <Text
+              style={[
+                typography.text,
+                styles.carparkContentText,
+                {fontSize: 13},
+              ]}>
+              {carpark.park_address}
+            </Text>
           </View>
-          <View>
-            <Text>Night Parking: {carpark.night_parking}</Text>
-          </View>
-          <View>
-            <Text>Gantry Height: {carpark.gantry_height}m</Text>
-          </View>
-          <View>
-            {carpark.building_type === 'SURFACE CAR PARK' ? (
-              <Text>Not Sheltered</Text>
+          <View style={styles.carparkContentContainer}>
+            {carpark.rate.length > 20 ? (
+              <>
+                <Text style={[typography.text, styles.carparkContentText]}>
+                  Rate
+                </Text>
+                <Text
+                  style={[
+                    typography.text,
+                    styles.carparkContentText,
+                    {fontSize: 13},
+                  ]}>
+                  {carpark.rate}
+                </Text>
+              </>
             ) : (
-              <Text>Sheltered</Text>
+              <Text style={[typography.text, styles.carparkContentText]}>
+                Rate: {carpark.rate}
+              </Text>
             )}
+          </View>
+          <View
+            style={[styles.carparkContentContainer, {flexDirection: 'row'}]}>
+            <Text style={[typography.text, styles.carparkContentText]}>
+              Paying System:
+            </Text>
+            {carpark.paying_system === 'COUPON PARKING' ? (
+              <>
+                <Text style={[typography.text, styles.carparkContentText]}>
+                  {' '}
+                  Electronic
+                </Text>
+                <Image
+                  style={styles.parkImage}
+                  source={require('./assets/coupon.png')}
+                />
+              </>
+            ) : (
+              <>
+                <Text style={[typography.text, styles.carparkContentText]}>
+                  {' '}
+                  Coupon
+                </Text>
+                <Image
+                  style={styles.parkImage}
+                  source={require('./assets/ticket-machine.png')}
+                />
+              </>
+            )}
+          </View>
+          <View
+            style={[styles.carparkContentContainer, {flexDirection: 'row'}]}>
+            <Text style={[typography.text, styles.carparkContentText]}>
+              Short Term Parking
+            </Text>
+            {carpark.short_term === 'NO' ? (
+              <Image
+                style={styles.noImage}
+                source={require('./assets/no.png')}
+              />
+            ) : (
+              <Text>: {carpark.short_term}</Text>
+            )}
+          </View>
+          <View
+            style={[styles.carparkContentContainer, {flexDirection: 'row'}]}>
+            <Text style={[typography.text, styles.carparkContentText]}>
+              Night Parking
+            </Text>
+            {carpark.night_parking === 'YES' ? (
+              <Image
+                style={styles.yesImage}
+                source={require('./assets/yes.png')}
+              />
+            ) : (
+              <Image
+                style={styles.noImage}
+                source={require('./assets/no.png')}
+              />
+            )}
+          </View>
+          <View style={styles.carparkContentContainer}>
+            <Text style={[typography.text, styles.carparkContentText]}>
+              Gantry Height: {carpark.gantry_height}m
+            </Text>
           </View>
         </View>
         <View style={styles.reviewContainer}>
@@ -173,33 +264,39 @@ export default function Carpark(props) {
           </View>
           <View style={styles.reviewScrollView}>
             <ScrollView style={styles.reviewContentScrollContainer}>
-              {reviews.map(review => {
-                return (
-                  <View
-                    style={styles.reviewTextContainer}
-                    key={review.review_id}>
-                    <View style={styles.reviewTextUser}>
-                      <View>
-                        <Text style={[typography.text, styles.reviewUser]}>
-                          {review.username}
+              {reviews.length === 0 ? (
+                <Text style={[typography.text, {fontSize: 20}]}>
+                  No reviews yet!
+                </Text>
+              ) : (
+                reviews.map(review => {
+                  return (
+                    <View
+                      style={styles.reviewTextContainer}
+                      key={review.review_id}>
+                      <View style={styles.reviewTextUser}>
+                        <View>
+                          <Text style={[typography.text, styles.reviewUser]}>
+                            {review.username}
+                          </Text>
+                        </View>
+                        <View style={styles.reviewRating}>
+                          <Text>{review.rating}</Text>
+                          <Image
+                            style={styles.starImage}
+                            source={require('./assets/star.png')}
+                          />
+                        </View>
+                      </View>
+                      <View style={styles.reviewTextComment}>
+                        <Text style={[typography.text, styles.reviewComment]}>
+                          {review.comment}
                         </Text>
                       </View>
-                      <View style={styles.reviewRating}>
-                        <Text>{review.rating}</Text>
-                        <Image
-                          style={styles.starImage}
-                          source={require('./assets/star.png')}
-                        />
-                      </View>
                     </View>
-                    <View style={styles.reviewTextComment}>
-                      <Text style={[typography.text, styles.reviewComment]}>
-                        {review.comment}
-                      </Text>
-                    </View>
-                  </View>
-                );
-              })}
+                  );
+                })
+              )}
             </ScrollView>
           </View>
         </View>

@@ -11,13 +11,38 @@ const styles = StyleSheet.create({
   },
   carparkContainer: {
     height: '50%',
+    justifyContent: 'space-evenly',
+    alignItems: 'center',
+  },
+  carparkTitleContainer: {
+    height: '10%',
+    width: '100%',
     justifyContent: 'center',
     alignItems: 'center',
   },
-  reviewContainer: {
-    height: '50%',
-    justifyContent: 'flex-end',
+  carparkContentContainer: {
+    height: '10%',
+    width: '90%',
+    justifyContent: 'center',
     alignItems: 'center',
+    backgroundColor: 'white',
+    shadowColor: '#000',
+    shadowOffset: {
+      width: 0,
+      height: 2,
+    },
+    shadowOpacity: 0.25,
+    shadowRadius: 4,
+    elevation: 5,
+  },
+  carparkContentText: {
+    fontSize: 16,
+    fontWeight: '600',
+    textAlign: 'center',
+  },
+  carparkNumberText: {
+    fontSize: 35,
+    fontWeight: '700',
   },
   plusImage: {
     width: 30,
@@ -57,6 +82,11 @@ const styles = StyleSheet.create({
     height: 50,
     justifyContent: 'center',
     top: 0,
+  },
+  reviewContainer: {
+    height: '50%',
+    justifyContent: 'flex-end',
+    alignItems: 'center',
   },
   reviewTitleContainer: {
     height: '20%',
@@ -131,6 +161,21 @@ const styles = StyleSheet.create({
   reviewTitleModal: {
     fontSize: 20,
     fontWeight: '700',
+  },
+  yesImage: {
+    marginLeft: 5,
+    maxWidth: 30,
+    maxHeight: 30,
+  },
+  noImage: {
+    marginLeft: 5,
+    maxWidth: 25,
+    maxHeight: 25,
+  },
+  parkImage: {
+    marginLeft: 5,
+    maxHeight: 30,
+    maxWidth: 30,
   },
 });
 
