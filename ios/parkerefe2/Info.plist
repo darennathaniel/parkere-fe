@@ -95,5 +95,27 @@
 		<string>Nunito-SemiBold.ttf</string>
 		<string>Nunito-SemiBoldItalic.ttf</string>
 	</array>
+	<key>LSApplicationQueriesSchemes</key>
+	<array>
+		<string>comgooglemaps</string>
+		<string>citymapper</string>
+		<string>uber</string>
+		<string>lyft</string>
+		<string>transit</string>
+		<string>truckmap</string>
+		<string>waze</string>
+		<string>yandexnavi</string>
+		<string>moovit</string>
+		<string>yandextaxi</string>
+		<string>yandexmaps</string>
+		<string>kakaomap</string>
+		<string>szn-mapy</string>
+		<string>mapsme</string>
+		<string>osmandmaps</string>
+		<string>gett</string>
+		<string>nmap</string>
+		<string>dgis</string>
+		<string>lftgpas</string>
+	</array>
 </dict>
 </plist>

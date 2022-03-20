@@ -21,6 +21,8 @@ import {useSelector, useDispatch} from 'react-redux';
 import {setFavorite} from '../../slices/isLoggedSlice';
 import {addFavorite, delFavorite, getFavorite} from '../../slices/services';
 import typography from '../common/typography';
+import {showLocation} from 'react-native-map-link';
+import googleStyle from '../login/styles';
 
 export default function Carpark(props) {
   const {route} = props;
@@ -64,6 +66,38 @@ export default function Carpark(props) {
             }}>
             <Text>Back</Text>
           </TouchableOpacity>
+        </View>
+        <View style={topNav.topMiddleNavigation}>
+          {user.location.lat === 0 && user.location.lng === 0 ? (
+            <TouchableOpacity
+              onPress={() => {
+                openMapDirection(
+                  carpark.lat,
+                  carpark.lon,
+                  carpark.park_address,
+                );
+              }}>
+              <Image
+                source={require('../login/assets/google.png')}
+                style={googleStyle.googleImg}
+              />
+            </TouchableOpacity>
+          ) : (
+            <TouchableOpacity
+              onPress={() => {
+                showLocation({
+                  latitude: carpark.lat,
+                  longitude: carpark.lon,
+                  sourceLatitude: 1.3483,
+                  sourceLongitude: 103.6831,
+                });
+              }}>
+              <Image
+                source={require('../login/assets/google.png')}
+                style={googleStyle.googleImg}
+              />
+            </TouchableOpacity>
+          )}
         </View>
         {user.value ? (
           user.favorite.filter(e => e._id === carpark._id).length > 0 ? (
@@ -124,7 +158,7 @@ export default function Carpark(props) {
             </View>
           )
         ) : (
-          <></>
+          <View style={topNav.topRightNavigation}></View>
         )}
       </View>
       <ScrollView contentContainerStyle={styles.scrollContainer}>
@@ -255,10 +289,6 @@ export default function Carpark(props) {
             <TouchableOpacity
               style={styles.addButton}
               onPress={() => handleShow(setShow, setShowErr)}>
-              {/* <Image
-                source={require('./assets/plus.png')}
-                style={styles.plusImage}
-              /> */}
               <Text>Add Review</Text>
             </TouchableOpacity>
           </View>
@@ -281,7 +311,7 @@ export default function Carpark(props) {
                           </Text>
                         </View>
                         <View style={styles.reviewRating}>
-                          <Text>{review.rating}</Text>
+                          <Text style={{fontSize: 20}}>{review.rating}</Text>
                           <Image
                             style={styles.starImage}
                             source={require('./assets/star.png')}
@@ -290,7 +320,9 @@ export default function Carpark(props) {
                       </View>
                       <View style={styles.reviewTextComment}>
                         <Text style={[typography.text, styles.reviewComment]}>
-                          {review.comment}
+                          {review.comment.length === 0
+                            ? '(No Comment)'
+                            : review.comment}
                         </Text>
                       </View>
                     </View>

@@ -15,13 +15,18 @@ const styles = StyleSheet.create({
   topNavigation: {
     position: 'relative',
     flexDirection: 'row',
-    justifyContent: 'space-between',
+    justifyContent: 'space-evenly',
   },
   topLeftNavigation: {
-    paddingLeft: 20,
+    width: '25%',
   },
   topRightNavigation: {
-    paddingRight: 20,
+    width: '25%',
+    alignItems: 'flex-end',
+  },
+  topMiddleNavigation: {
+    width: '25%',
+    alignItems: 'center',
   },
   content: {
     flex: 1,

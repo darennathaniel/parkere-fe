@@ -144,8 +144,8 @@ const styles = StyleSheet.create({
     padding: 5,
   },
   starImage: {
-    maxWidth: 10,
-    maxHeight: 10,
+    maxWidth: 15,
+    maxHeight: 15,
   },
   reviewTextContainerModal: {
     width: '100%',

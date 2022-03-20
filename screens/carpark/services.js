@@ -26,23 +26,15 @@ export const handleShow = async (setShow, setError) => {
   }
 };
 
-export const openMapDirection = (latitude, longitude) => {
-  const url = Platform.select({
-    ios: `comgooglemaps://?center=${latitude},${longitude}&q=${latitude},${longitude}&zoom=14&views=traffic"`,
-    android: `geo://?q=${latitude},${longitude}`,
-  });
-  Linking.canOpenURL(url)
-    .then(supported => {
-      if (supported) {
-        return Linking.openURL(url);
-      } else {
-        const browser_url = `https://www.google.de/maps/@${latitude},${longitude}`;
-        return Linking.openURL(browser_url);
-      }
-    })
-    .catch(() => {
-      if (Platform.OS === 'ios') {
-        Linking.openURL(`maps://?q=${latitude},${longitude}`);
-      }
-    });
+export const openMapDirection = (latitude, longitude, label) => {
+  // const url = Platform.select({
+  //   ios: 'maps:' + latitude + ',' + longitude + '?q=' + label,
+  //   android: 'geo:' + latitude + ',' + longitude + '?q=' + label,
+  // });
+  // Linking.openURL(url);
+  Linking.openURL(
+    Platform.OS === 'ios'
+      ? `googleMaps://app?saddr=${latitude}+${longitude}&daddr=${latitude}+${longitude}`
+      : `google.navigation:q=${latitude}+${longitude}`,
+  );
 };
