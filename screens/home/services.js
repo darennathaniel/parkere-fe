@@ -47,8 +47,8 @@ export const centerView = (ref, location) => {
   const data = {
     altitude: 2232,
     center: {
-      latitude: location.coords.latitude,
-      longitude: location.coords.longitude,
+      latitude: location.lat,
+      longitude: location.lng,
     },
     heading: 0,
     pitch: 0,

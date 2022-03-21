@@ -26,7 +26,7 @@ export const isLoggedSlice = createSlice({
       };
     },
     setLogout: (state = initialState, action) => {
-      return {...action.payload, ...state};
+      return {...action.payload, location: {...state.location}};
     },
     setFavorite: (state = initialState, action) => {
       return {...state, favorite: [...action.payload.favorite], ...state};
