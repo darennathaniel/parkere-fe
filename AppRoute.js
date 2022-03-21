@@ -9,6 +9,7 @@ import {useDispatch, useSelector} from 'react-redux';
 
 import {getAllCarpark} from './screens/search/services';
 import {setCarparks} from './slices/carparkSlice';
+import {Image} from 'react-native';
 
 const Root = createBottomTabNavigator();
 
@@ -31,24 +32,68 @@ export default function AppRoute() {
         <Root.Screen
           component={HomeScreen}
           name="HomeScreen"
-          options={{headerShown: false, tabBarLabel: 'Home'}}
+          options={{
+            headerShown: false,
+            tabBarLabel: 'Home',
+            tabBarIcon: () => {
+              return (
+                <Image
+                  style={{width: 25, height: 25}}
+                  source={require('./assets/image/home.png')}
+                />
+              );
+            },
+          }}
         />
         <Root.Screen
           component={SearchScreen}
           name="SearchScreen"
-          options={{headerShown: false, tabBarLabel: 'Search'}}
+          options={{
+            headerShown: false,
+            tabBarLabel: 'Search',
+            tabBarIcon: () => {
+              return (
+                <Image
+                  style={{width: 25, height: 25}}
+                  source={require('./screens/search/assets/search.png')}
+                />
+              );
+            },
+          }}
         />
         {isLogged.value ? (
           <Root.Screen
             component={ProfileScreen}
             name="ProfileScreen"
-            options={{headerShown: false, tabBarLabel: isLogged.name}}
+            options={{
+              headerShown: false,
+              tabBarLabel: isLogged.name,
+              tabBarIcon: () => {
+                return (
+                  <Image
+                    style={{width: 25, height: 25}}
+                    source={require('./assets/image/user.png')}
+                  />
+                );
+              },
+            }}
           />
         ) : (
           <Root.Screen
             component={LoginScreen}
             name="LoginScreen"
-            options={{headerShown: false, tabBarLabel: 'Login'}}
+            options={{
+              headerShown: false,
+              tabBarLabel: 'Login',
+              tabBarIcon: () => {
+                return (
+                  <Image
+                    style={{width: 25, height: 25}}
+                    source={require('./assets/image/login.png')}
+                  />
+                );
+              },
+            }}
           />
         )}
       </Root.Navigator>
