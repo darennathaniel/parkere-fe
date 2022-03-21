@@ -29,7 +29,11 @@ export const isLoggedSlice = createSlice({
       return {...action.payload, location: {...state.location}};
     },
     setFavorite: (state = initialState, action) => {
-      return {...state, favorite: [...action.payload.favorite], ...state};
+      return {
+        ...state,
+        favorite: [...action.payload.favorite],
+        location: {...state.location},
+      };
     },
     setLocation: (state = initialState, action) => {
       return {...state, ...action.payload};
