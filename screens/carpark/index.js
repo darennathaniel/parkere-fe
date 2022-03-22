@@ -21,7 +21,6 @@ import {useSelector, useDispatch} from 'react-redux';
 import {setFavorite} from '../../slices/isLoggedSlice';
 import {addFavorite, delFavorite, getFavorite} from '../../slices/services';
 import typography from '../common/typography';
-import {showLocation} from 'react-native-map-link';
 import googleStyle from '../login/styles';
 
 export default function Carpark(props) {
@@ -85,11 +84,9 @@ export default function Carpark(props) {
           ) : (
             <TouchableOpacity
               onPress={() => {
-                showLocation({
+                props.navigation.navigate('Map', {
                   latitude: carpark.lat,
                   longitude: carpark.lon,
-                  sourceLatitude: 1.3483,
-                  sourceLongitude: 103.6831,
                 });
               }}>
               <Image

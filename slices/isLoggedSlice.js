@@ -13,6 +13,10 @@ export const isLoggedSlice = createSlice({
       lat: 0,
       lng: 0,
     },
+    search: {
+      lat: 0,
+      lng: 0,
+    },
   },
   reducers: {
     setLogin: (state = initialState, action) => {
@@ -38,10 +42,13 @@ export const isLoggedSlice = createSlice({
     setLocation: (state = initialState, action) => {
       return {...state, ...action.payload};
     },
+    setSearch: (state = initialState, action) => {
+      return {...state, search: {...action.payload.location}};
+    },
   },
 });
 
-export const {setLogin, setLogout, setFavorite, setLocation} =
+export const {setLogin, setLogout, setFavorite, setLocation, setSearch} =
   isLoggedSlice.actions;
 
 export default isLoggedSlice.reducer;

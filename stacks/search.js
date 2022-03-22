@@ -4,6 +4,7 @@ import {useSelector} from 'react-redux';
 
 import Search from '../screens/search';
 import Carpark from '../screens/carpark';
+import Map from '../screens/search/map';
 
 const SearchStack = createNativeStackNavigator();
 
@@ -28,6 +29,11 @@ export default function SearchScreen(props) {
           />
         );
       })}
+      <SearchStack.Screen
+        name="Map"
+        component={Map}
+        options={{headerShown: false}}
+      />
     </SearchStack.Navigator>
   );
 }

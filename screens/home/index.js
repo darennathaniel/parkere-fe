@@ -38,6 +38,10 @@ export default function Home(props) {
             lat: currLocation.coords.latitude,
             lng: currLocation.coords.longitude,
           },
+          search: {
+            lat: currLocation.coords.latitude,
+            lng: currLocation.coords.longitude,
+          },
         }),
       );
 

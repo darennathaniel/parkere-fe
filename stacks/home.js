@@ -2,9 +2,11 @@ import React from 'react';
 
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
 
-import Carpark from '../screens/carpark';
 import {useSelector} from 'react-redux';
+
+import Carpark from '../screens/carpark';
 import Home from '../screens/home';
+import Map from '../screens/search/map';
 
 const HomeStack = createNativeStackNavigator();
 
@@ -28,6 +30,11 @@ export default function HomeScreen(props) {
           />
         );
       })}
+      <HomeStack.Screen
+        name="Map"
+        component={Map}
+        options={{headerShown: false}}
+      />
     </HomeStack.Navigator>
   );
 }
