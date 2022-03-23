@@ -5,7 +5,6 @@ import {
   View,
   TouchableOpacity,
   TextInput,
-  Button,
   Image,
 } from 'react-native';
 import styles from './styles';

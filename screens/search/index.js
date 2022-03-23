@@ -7,7 +7,6 @@ import {
   TextInput,
   Image,
   TouchableOpacity,
-  Button,
 } from 'react-native';
 import {useSelector} from 'react-redux';
 import {filterCarpark, handleChangeText} from './services';

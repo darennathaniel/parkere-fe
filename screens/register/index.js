@@ -4,7 +4,6 @@ import {
   Text,
   View,
   TextInput,
-  Button,
   TouchableOpacity,
 } from 'react-native';
 import {useNavigation} from '@react-navigation/core';
@@ -37,7 +36,7 @@ export default function Register(props) {
 
   return (
     <SafeAreaView style={styles.container}>
-      <View style={styles.topLeftNavigation}>
+      <View style={[styles.topLeftNavigation, {paddingLeft: 20}]}>
         <TouchableOpacity
           onPress={() => {
             navigation.goBack();
