@@ -11,6 +11,7 @@ import {
 import {useSelector} from 'react-redux';
 import {filterCarpark, handleChangeText} from './services';
 import styles from './styles';
+import bottomButton from '../home/styles';
 import typography from '../common/typography';
 
 export default function Search(props) {
@@ -65,6 +66,18 @@ export default function Search(props) {
           );
         })}
       </ScrollView>
+      <View style={bottomButton.centerButton}>
+        <TouchableOpacity
+          style={[bottomButton.circleBg, {bottom: -60}]}
+          onPress={() => {
+            handleTop();
+          }}>
+          <Image
+            source={require('./assets/upload.png')}
+            style={bottomButton.locationImage}
+          />
+        </TouchableOpacity>
+      </View>
     </SafeAreaView>
   );
 }
