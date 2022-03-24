@@ -1,0 +1,150 @@
+import {configureStore, createSlice} from '@reduxjs/toolkit';
+
+const carparkSlice = createSlice({
+  name: 'carparks',
+  initialState: {
+    data: [
+      {
+        _id: 1,
+        building_type: 'BASEMENT CAR PARK',
+        carpark_basement: 'Y',
+        free_parking: 'NO',
+        gantry_height: '1.80',
+        lat: '1.3010626054202958',
+        lon: '103.85411771659146',
+        night_parking: 'YES',
+        park_address: 'BLK 270/271 ALBERT CENTRE BASEMENT CAR PARK',
+        park_number: 'ACB',
+        paying_system: 'ELECTRONIC PARKING',
+        rate: '$1.20 per half-hour (7:00am to 5:00pm, Monday to Saturday) $0.60 per half hour (Other hours)',
+        short_term: 'WHOLE DAY',
+      },
+      {
+        _id: 2,
+        building_type: 'MULTI-STOREY CAR PARK',
+        carpark_basement: 'N',
+        free_parking: 'SUN & PH FR 7AM-10.30PM',
+        gantry_height: '2.10',
+        lat: '1.3210036234390932',
+        lon: '103.88506061425689',
+        night_parking: 'YES',
+        park_address: 'BLK 98A ALJUNIED CRESCENT',
+        park_number: 'ACM',
+        paying_system: 'ELECTRONIC PARKING',
+        rate: '$0.60 per half-hour',
+        short_term: 'WHOLE DAY',
+      },
+      {
+        _id: 3,
+        building_type: 'SURFACE CAR PARK',
+        carpark_basement: 'N',
+        free_parking: 'SUN & PH FR 7AM-10.30PM',
+        gantry_height: '0.00',
+        lat: '1.3282828284423163',
+        lon: '103.84461955580952',
+        night_parking: 'YES',
+        park_address: 'BLK 101 JALAN DUSUN',
+        park_number: 'AH1',
+        paying_system: 'ELECTRONIC PARKING',
+        rate: '$0.60 per half-hour',
+        short_term: 'WHOLE DAY',
+      },
+      {
+        _id: 4,
+        building_type: 'SURFACE CAR PARK',
+        carpark_basement: 'N',
+        free_parking: 'NO',
+        gantry_height: '0.00',
+        lat: '1.3690905494766747',
+        lon: '103.83498451700709',
+        night_parking: 'NO',
+        park_address: 'BLOCK 253 ANG MO KIO STREET 21',
+        park_number: 'AK19',
+        paying_system: 'COUPON PARKING',
+        rate: '$0.60 per half-hour',
+        short_term: '7AM-7PM',
+      },
+      {
+        _id: 5,
+        building_type: 'SURFACE CAR PARK',
+        carpark_basement: 'N',
+        free_parking: 'NO',
+        gantry_height: '0.00',
+        lat: '1.366119757650446',
+        lon: '103.84663529827884',
+        night_parking: 'NO',
+        park_address: 'BLK 302/348 ANG MO KIO ST 31',
+        park_number: 'AK31',
+        paying_system: 'COUPON PARKING',
+        rate: '$0.60 per half-hour',
+        short_term: 'NO',
+      },
+      {
+        _id: 6,
+        building_type: 'SURFACE CAR PARK',
+        carpark_basement: 'N',
+        free_parking: 'NO',
+        gantry_height: '0.00',
+        lat: '1.3724379667754085',
+        lon: '103.85029536408668',
+        night_parking: 'YES',
+        park_address: 'BLOCK 513 ANG MO KIO ST 53',
+        park_number: 'AK52',
+        paying_system: 'COUPON PARKING',
+        rate: '$0.60 per half-hour',
+        short_term: 'WHOLE DAY',
+      },
+      {
+        _id: 7,
+        building_type: 'SURFACE CAR PARK',
+        carpark_basement: 'N',
+        free_parking: 'SUN & PH FR 7AM-10.30PM',
+        gantry_height: '0.00',
+        lat: '1.374835262786515',
+        lon: '103.84485350822506',
+        night_parking: 'NO',
+        park_address: 'BLOCK 728 ANG MO KIO AVE 6',
+        park_number: 'AK6',
+        paying_system: 'COUPON PARKING',
+        rate: '$0.60 per half-hour',
+        short_term: '7AM-10.30PM',
+      },
+    ],
+    filtered: false,
+  },
+  reducers: {
+    setCarparks: (state = initialState, action) => {
+      return {...action.payload};
+    },
+  },
+});
+
+const isLoggedSlice = createSlice({
+  name: 'isLogged',
+  initialState: {
+    value: false,
+    name: '',
+    email: '',
+    favorite: [],
+    location: {
+      lat: 0,
+      lng: 0,
+    },
+    search: {
+      lat: 0,
+      lng: 0,
+    },
+  },
+  reducers: {
+    setLogin: (state = initialState, action) => {
+      return {...action.payload};
+    },
+  },
+});
+
+export default configureStore({
+  reducer: {
+    carparks: carparkSlice.reducer,
+    isLogged: isLoggedSlice.reducer,
+  },
+});

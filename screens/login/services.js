@@ -1,4 +1,3 @@
-import axios from 'axios';
 import {AxiosInit} from '../../axios';
 
 const parkereAxios = AxiosInit();

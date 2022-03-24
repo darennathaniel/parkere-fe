@@ -36,6 +36,7 @@ export default function Search(props) {
           <TextInput
             style={styles.textInput}
             placeholder="Search Park Number..."
+            testID="search_park_number"
             onChangeText={e => {
               handleChangeText(e, setFilterNo);
             }}
@@ -58,7 +59,7 @@ export default function Search(props) {
                 props.navigation.navigate(carpark.park_number, {search: true})
               }>
               <View style={styles.carparkContainer}>
-                <Text style={typography.text}>
+                <Text style={typography.text} testID="carpark_text">
                   {carpark.park_address} ({carpark.park_number})
                 </Text>
               </View>

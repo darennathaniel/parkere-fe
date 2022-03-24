@@ -1,5 +1,7 @@
 import React, {useState} from 'react';
 
+import {Rating} from 'react-native-ratings';
+
 import {
   Modal,
   View,
@@ -9,7 +11,6 @@ import {
   TouchableOpacity,
   Image,
 } from 'react-native';
-import {Rating} from 'react-native-ratings';
 
 import styles from '../styles';
 import button from '../../common/errorModal/styles';
