@@ -13,25 +13,58 @@ import {filterCarpark, handleChangeText} from './services';
 import styles from './styles';
 import bottomButton from '../home/styles';
 import typography from '../common/typography';
+import FilterModal from './filterModal';
 
 export default function Search(props) {
   const carparks = useSelector(state => state.carparks.data);
+
+  const [show, setShow] = useState(false);
   const [filterNo, setFilterNo] = useState('');
   const [filterAddr, setFilterAddr] = useState('');
-  const filteredCarparks = filterCarpark(carparks, filterNo, filterAddr);
+  const [filterFree, setFilterFree] = useState(null);
+  const [filterNight, setFilterNight] = useState(null);
+  const [filterBasement, setFilterBasement] = useState(null);
+  const [filterShort, setFilterShort] = useState(null);
+
+  const [filteredCarparks, setFilteredCarparks] = useState(
+    filterCarpark(
+      carparks,
+      filterNo,
+      filterAddr,
+      filterFree,
+      filterNight,
+      filterBasement,
+      filterShort,
+    ),
+  );
   const ref = useRef(null);
 
   const handleTop = () => {
     ref.current.scrollTo({x: 0, y: 0, animated: true});
   };
 
+  console.log(filteredCarparks.length);
+
   return (
     <SafeAreaView style={styles.container}>
       <View style={styles.searchContainer}>
-        <Image
-          source={require('./assets/search.png')}
-          style={styles.searchImage}
-        />
+        <View>
+          <View style={{height: '20%'}}>
+            <Image
+              source={require('./assets/search.png')}
+              style={styles.searchImage}
+            />
+          </View>
+          <View
+            style={{
+              height: '50%',
+              justifyContent: 'flex-end',
+            }}>
+            <TouchableOpacity onPress={() => setShow(true)}>
+              <Text>More</Text>
+            </TouchableOpacity>
+          </View>
+        </View>
         <View style={styles.textContainer}>
           <TextInput
             style={styles.textInput}
@@ -79,6 +112,21 @@ export default function Search(props) {
           />
         </TouchableOpacity>
       </View>
+      <FilterModal
+        show={show}
+        setShow={setShow}
+        setFilterShort={setFilterShort}
+        setFilterBasement={setFilterBasement}
+        setFilterFree={setFilterFree}
+        setFilterNight={setFilterNight}
+        filterShort={filterShort}
+        filterBasement={filterBasement}
+        filterFree={filterFree}
+        filterNight={filterNight}
+        setFilteredCarparks={setFilteredCarparks}
+        filterNo={filterNo}
+        filterAddr={filterAddr}
+      />
     </SafeAreaView>
   );
 }

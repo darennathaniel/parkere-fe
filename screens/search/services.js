@@ -14,10 +14,36 @@ export const handleChangeText = (e, setFilter) => {
   setFilter(e);
 };
 
-export const filterCarpark = (carparks, filterNo, filterAddr) => {
+export const filterCarpark = (
+  carparks,
+  filterNo,
+  filterAddr,
+  filterFree,
+  filterNight,
+  filterBasement,
+  filterShort,
+) => {
   return carparks.filter(
     carpark =>
       carpark.park_address.toLowerCase().includes(filterAddr.toLowerCase()) &&
-      carpark.park_number.toLowerCase().includes(filterNo.toLowerCase()),
+      carpark.park_number.toLowerCase().includes(filterNo.toLowerCase()) &&
+      (filterNight === null
+        ? carpark.night_parking.includes('YES') ||
+          carpark.night_parking.includes('NO')
+        : carpark.night_parking.includes(filterFree ? 'YES' : 'NO')) &&
+      (filterFree === null
+        ? /[a-z]/i.test(carpark.free_parking)
+        : filterFree
+        ? !carpark.free_parking.includes('NO')
+        : carpark.free_parking.includes('NO')) &&
+      (filterBasement === null
+        ? carpark.carpark_basement.includes('Y') ||
+          carpark.carpark_basement.includes('N')
+        : carpark.carpark_basement.includes(filterBasement ? 'Y' : 'N')) &&
+      (filterShort === null
+        ? /[a-z]/i.test(carpark.short_term)
+        : filterShort
+        ? !carpark.short_term.includes('NO')
+        : carpark.short_term.includes('NO')),
   );
 };
