@@ -272,6 +272,27 @@ export default function Carpark(props) {
               />
             )}
           </View>
+          <View
+            style={[styles.carparkContentContainer, {flexDirection: 'row'}]}>
+            <Text style={[typography.text, styles.carparkContentText]}>
+              Free Parking
+            </Text>
+            {carpark.free_parking === 'NO' ? (
+              <Image
+                style={styles.noImage}
+                source={require('./assets/no.png')}
+              />
+            ) : (
+              <Text
+                style={[
+                  typography.text,
+                  styles.carparkContentText,
+                  {fontSize: 15},
+                ]}>
+                : {carpark.free_parking}
+              </Text>
+            )}
+          </View>
           <View style={styles.carparkContentContainer}>
             <Text style={[typography.text, styles.carparkContentText]}>
               Gantry Height: {carpark.gantry_height}m

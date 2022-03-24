@@ -43,7 +43,7 @@ export default function Search(props) {
     ref.current.scrollTo({x: 0, y: 0, animated: true});
   };
 
-  console.log(filteredCarparks.length);
+  console.log(filteredCarparks.length, filterFree);
 
   return (
     <SafeAreaView style={styles.container}>
@@ -72,6 +72,17 @@ export default function Search(props) {
             testID="search_park_number"
             onChangeText={e => {
               handleChangeText(e, setFilterNo);
+              setFilteredCarparks(
+                filterCarpark(
+                  carparks,
+                  e,
+                  filterAddr,
+                  filterFree,
+                  filterNight,
+                  filterBasement,
+                  filterShort,
+                ),
+              );
             }}
           />
           <TextInput
@@ -79,6 +90,17 @@ export default function Search(props) {
             placeholder="Search Park Address..."
             onChangeText={e => {
               handleChangeText(e, setFilterAddr);
+              setFilteredCarparks(
+                filterCarpark(
+                  carparks,
+                  filterNo,
+                  e,
+                  filterFree,
+                  filterNight,
+                  filterBasement,
+                  filterShort,
+                ),
+              );
             }}
           />
         </View>
