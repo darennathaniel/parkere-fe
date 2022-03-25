@@ -22,7 +22,7 @@ export default function HomeScreen(props) {
       {carparks.map(carpark => {
         return (
           <HomeStack.Screen
-            key={carpark._id}
+            key={carpark.park_number}
             name={carpark.park_number}
             component={Carpark}
             options={{headerShown: false}}

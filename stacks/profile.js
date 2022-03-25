@@ -18,7 +18,7 @@ export default function ProfileScreen(props) {
       {carparks.map(carpark => {
         return (
           <ProfileStack.Screen
-            key={carpark._id}
+            key={carpark.park_number}
             name={carpark.park_number}
             component={Carpark}
             options={{headerShown: false}}

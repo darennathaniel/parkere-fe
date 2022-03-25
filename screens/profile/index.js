@@ -42,7 +42,7 @@ export default function Profile(props) {
                   onPress={() => {
                     props.navigation.navigate(favorite.park_number);
                   }}
-                  key={favorite._id}
+                  key={favorite.park_number}
                   style={[search.carparkContainer, {justifyContent: 'center'}]}>
                   <Text style={typography.text}>
                     {favorite.park_address} ({favorite.park_number})

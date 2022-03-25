@@ -76,7 +76,7 @@ export default function Home(props) {
               {carparks.map(carpark => {
                 return (
                   <Marker
-                    key={carpark._id}
+                    key={carpark.park_number}
                     coordinate={{
                       latitude: Number(carpark.lat),
                       longitude: Number(carpark.lon),
