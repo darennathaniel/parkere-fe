@@ -27,20 +27,20 @@ export const filterCarpark = (
     carpark =>
       carpark.park_address.toLowerCase().includes(filterAddr.toLowerCase()) &&
       carpark.park_number.toLowerCase().includes(filterNo.toLowerCase()) &&
-      (filterNight === null
+      (filterNight === null || !filterNight
         ? carpark.night_parking.includes('YES') ||
           carpark.night_parking.includes('NO')
         : carpark.night_parking.includes(filterFree ? 'YES' : 'NO')) &&
-      (filterFree === null
+      (filterFree === null || !filterFree
         ? /[a-z]/i.test(carpark.free_parking)
         : filterFree
         ? !carpark.free_parking.includes('NO')
         : carpark.free_parking.includes('NO')) &&
-      (filterBasement === null
+      (filterBasement === null || !filterBasement
         ? carpark.carpark_basement.includes('Y') ||
           carpark.carpark_basement.includes('N')
         : carpark.carpark_basement.includes(filterBasement ? 'Y' : 'N')) &&
-      (filterShort === null
+      (filterShort === null || !filterShort
         ? /[a-z]/i.test(carpark.short_term)
         : filterShort
         ? !carpark.short_term.includes('NO')

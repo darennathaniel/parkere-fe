@@ -6,7 +6,7 @@ const styles = StyleSheet.create({
     backgroundColor: 'white',
   },
   scrollContainer: {
-    height: '190%',
+    height: '200%',
     backgroundColor: 'white',
   },
   carparkContainer: {
@@ -84,12 +84,11 @@ const styles = StyleSheet.create({
     top: 0,
   },
   reviewContainer: {
-    height: '50%',
-    justifyContent: 'flex-end',
+    height: '60%',
     alignItems: 'center',
   },
   reviewTitleContainer: {
-    height: '20%',
+    height: '10%',
     width: '100%',
     padding: 20,
     flexDirection: 'row',
@@ -101,7 +100,7 @@ const styles = StyleSheet.create({
     fontWeight: '700',
   },
   reviewScrollView: {
-    height: '80%',
+    height: '70%',
     width: '80%',
     shadowColor: '#171717',
     shadowOffset: {width: -2, height: 4},
