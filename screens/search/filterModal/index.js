@@ -56,6 +56,7 @@ export default function FilterModal(props) {
               <CheckBox
                 value={filterNight === null ? false : filterNight}
                 onValueChange={e => setFilterNight(e)}
+                testID="checkbox_night_parking"
               />
             </View>
             <View style={styles.container}>
@@ -88,6 +89,7 @@ export default function FilterModal(props) {
               <View>
                 <TouchableOpacity
                   style={styles.apply}
+                  testID="apply"
                   onPress={() => {
                     setShow(false);
                     setFilteredCarparks(

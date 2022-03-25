@@ -109,11 +109,12 @@ export default function Search(props) {
         {filteredCarparks.map(carpark => {
           return (
             <TouchableOpacity
+              testID="park_number"
               key={carpark.park_number}
               onPress={() =>
                 props.navigation.navigate(carpark.park_number, {search: true})
               }>
-              <View style={styles.carparkContainer}>
+              <View key={carpark.night_parking} style={styles.carparkContainer}>
                 <Text style={typography.text}>
                   {carpark.park_address} ({carpark.park_number})
                 </Text>
