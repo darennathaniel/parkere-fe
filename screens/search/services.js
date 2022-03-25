@@ -30,7 +30,7 @@ export const filterCarpark = (
       (filterNight === null || !filterNight
         ? carpark.night_parking.includes('YES') ||
           carpark.night_parking.includes('NO')
-        : carpark.night_parking.includes(filterFree ? 'YES' : 'NO')) &&
+        : carpark.night_parking.includes(filterNight ? 'YES' : 'NO')) &&
       (filterFree === null || !filterFree
         ? /[a-z]/i.test(carpark.free_parking)
         : filterFree
