@@ -367,12 +367,3 @@ export default function Carpark(props) {
     </SafeAreaView>
   );
 }
-
-{
-  /* <TouchableOpacity
-            onPress={() => {
-              openMapDirection(carpark.lat, carpark.lon);
-            }}>
-            <Text>Button</Text>
-          </TouchableOpacity> */
-}

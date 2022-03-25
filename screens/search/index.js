@@ -43,8 +43,6 @@ export default function Search(props) {
     ref.current.scrollTo({x: 0, y: 0, animated: true});
   };
 
-  console.log(filteredCarparks.length, filterFree);
-
   return (
     <SafeAreaView style={styles.container}>
       <View style={styles.searchContainer}>
@@ -60,7 +58,9 @@ export default function Search(props) {
               height: '50%',
               justifyContent: 'flex-end',
             }}>
-            <TouchableOpacity onPress={() => setShow(true)}>
+            <TouchableOpacity
+              onPress={() => setShow(true)}
+              testID="open_button">
               <Text>More</Text>
             </TouchableOpacity>
           </View>
@@ -105,16 +105,16 @@ export default function Search(props) {
           />
         </View>
       </View>
-      <ScrollView style={styles.scrollContainer} ref={ref}>
+      <ScrollView style={styles.scrollContainer} ref={ref} testID="scroll_view">
         {filteredCarparks.map(carpark => {
           return (
             <TouchableOpacity
-              key={carpark._id}
+              key={carpark.park_number}
               onPress={() =>
                 props.navigation.navigate(carpark.park_number, {search: true})
               }>
               <View style={styles.carparkContainer}>
-                <Text style={typography.text} testID="carpark_text">
+                <Text style={typography.text}>
                   {carpark.park_address} ({carpark.park_number})
                 </Text>
               </View>
