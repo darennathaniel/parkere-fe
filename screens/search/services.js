@@ -2,8 +2,13 @@ import {AxiosInit} from '../../axios';
 
 const parkereAxios = AxiosInit();
 
-export const getAllCarpark = () => {
-  return parkereAxios.get('/carpark/getAllCarpark');
+export const getAllCarpark = location => {
+  return parkereAxios.get('/carpark/getAllCarpark', {
+    params: {
+      latitude: location.latitude,
+      longitude: location.longitude,
+    },
+  });
 };
 
 export const getCarpark = () => {

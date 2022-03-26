@@ -3,7 +3,7 @@ import {AxiosInit} from '../../axios';
 const parkereAxios = AxiosInit();
 
 export const getWeather = async (latitude, longitude) => {
-  const response = await parkereAxios('/forecast/');
+  const response = await parkereAxios.get('/forecast/');
   const filtered = response.data.data.filter(
     e =>
       Math.abs(e.latitude - latitude) < 0.05 &&
@@ -31,7 +31,8 @@ export const alertRain = (
           setFilteredCarparks,
         );
       } else if (
-        weather.cloudy.filter(e => res.forecast.includes(e)).length > 0
+        weather.cloudy.filter(e => res.forecast.includes(e)).length > 0 ||
+        res.forecast === 'Cloudy'
       ) {
         forecastAlert(
           'It is about to rain, Do you want to find a sheltered carpark?',

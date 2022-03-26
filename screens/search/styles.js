@@ -18,6 +18,7 @@ const styles = StyleSheet.create({
     backgroundColor: '#F2F0F0',
     marginTop: 10,
     width: '100%',
+    justifyContent: 'space-between',
   },
   searchContainer: {
     height: '13%',

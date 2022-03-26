@@ -6,10 +6,11 @@ import ProfileScreen from './stacks/profile';
 import SearchScreen from './stacks/search';
 import HomeScreen from './stacks/home';
 import {useDispatch, useSelector} from 'react-redux';
-
+import * as Location from 'expo-location';
 import {getAllCarpark} from './screens/search/services';
 import {setCarparks} from './slices/carparkSlice';
 import {Image} from 'react-native';
+import {setLocation} from './slices/isLoggedSlice';
 
 const Root = createBottomTabNavigator();
 
@@ -19,11 +20,29 @@ export default function AppRoute() {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    getAllCarpark()
-      .then(res => {
-        dispatch(setCarparks({data: res.data.data}));
-      })
-      .catch(err => console.log(err));
+    (async () => {
+      const {status} = await Location.requestForegroundPermissionsAsync();
+      if (status !== 'granted') {
+        props.navigation.navigate('Search');
+        return;
+      }
+
+      let currLocation = await Location.getCurrentPositionAsync({});
+      dispatch(
+        setLocation({
+          location: {
+            lat: currLocation.coords.latitude,
+            lng: currLocation.coords.longitude,
+          },
+          search: {
+            lat: currLocation.coords.latitude,
+            lng: currLocation.coords.longitude,
+          },
+        }),
+      );
+      const data = await getAllCarpark(currLocation.coords);
+      dispatch(setCarparks({data: data.data.data}));
+    })();
   }, []);
 
   return (

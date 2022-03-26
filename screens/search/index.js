@@ -115,9 +115,16 @@ export default function Search(props) {
                 props.navigation.navigate(carpark.park_number, {search: true})
               }>
               <View key={carpark.night_parking} style={styles.carparkContainer}>
-                <Text style={typography.text}>
-                  {carpark.park_address} ({carpark.park_number})
-                </Text>
+                <View>
+                  <Text style={typography.text}>
+                    {carpark.park_address} ({carpark.park_number})
+                  </Text>
+                </View>
+                <View>
+                  <Text style={typography.text}>
+                    Distance: {parseInt(carpark.distance)}km
+                  </Text>
+                </View>
               </View>
             </TouchableOpacity>
           );

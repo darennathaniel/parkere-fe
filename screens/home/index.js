@@ -9,12 +9,11 @@ import {
 } from 'react-native';
 import styles from './styles';
 import MapView, {Callout, Marker} from 'react-native-maps';
-import * as Location from 'expo-location';
 import {useDispatch, useSelector} from 'react-redux';
 import {alertRain, centerView} from './services';
 import {forecastAlert} from './alert';
 import {setFilteredCarparks} from '../../slices/carparkSlice';
-import {setLocation} from '../../slices/isLoggedSlice';
+import * as Location from 'expo-location';
 
 export default function Home(props) {
   const dispatch = useDispatch();
@@ -32,19 +31,6 @@ export default function Home(props) {
       }
 
       let currLocation = await Location.getCurrentPositionAsync({});
-      dispatch(
-        setLocation({
-          location: {
-            lat: currLocation.coords.latitude,
-            lng: currLocation.coords.longitude,
-          },
-          search: {
-            lat: currLocation.coords.latitude,
-            lng: currLocation.coords.longitude,
-          },
-        }),
-      );
-
       alertRain(dispatch, setFilteredCarparks, forecastAlert, currLocation);
     })();
   }, []);
