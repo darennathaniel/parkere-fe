@@ -121,9 +121,15 @@ export default function Search(props) {
                   </Text>
                 </View>
                 <View>
-                  <Text style={typography.text}>
-                    Distance: {parseInt(carpark.distance)}km
-                  </Text>
+                  {parseInt(carpark.distance) === 0 ? (
+                    <Text style={typography.text}>
+                      {parseInt(carpark.distance * 1000)}m
+                    </Text>
+                  ) : (
+                    <Text style={typography.text}>
+                      {parseInt(carpark.distance)}km
+                    </Text>
+                  )}
                 </View>
               </View>
             </TouchableOpacity>

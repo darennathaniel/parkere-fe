@@ -18,7 +18,9 @@ const styles = StyleSheet.create({
     backgroundColor: '#F2F0F0',
     marginTop: 10,
     width: '100%',
+    flexDirection: 'row',
     justifyContent: 'space-between',
+    flexWrap: 'wrap',
   },
   searchContainer: {
     height: '13%',
