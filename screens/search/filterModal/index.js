@@ -26,6 +26,8 @@ export default function FilterModal(props) {
     setFilteredCarparks,
     filterNo,
     filterAddr,
+    filterDistance,
+    setFilterDistance,
   } = props;
   const carparks = useSelector(state => state.carparks.data);
   return (
@@ -43,6 +45,13 @@ export default function FilterModal(props) {
             </View>
             <View>
               <Text style={[typography.text, styles.title]}>Filter</Text>
+            </View>
+            <View style={styles.container}>
+              <Text style={[typography.text, styles.text]}>Shortest</Text>
+              <CheckBox
+                value={filterDistance === null ? false : filterDistance}
+                onValueChange={e => setFilterDistance(e)}
+              />
             </View>
             <View style={styles.container}>
               <Text style={[typography.text, styles.text]}>Free Parking</Text>
@@ -82,6 +91,7 @@ export default function FilterModal(props) {
                     setFilterBasement(null);
                     setFilterNight(null);
                     setFilterShort(null);
+                    setFilterDistance(null);
                   }}>
                   <Text>Reset</Text>
                 </TouchableOpacity>
@@ -101,6 +111,7 @@ export default function FilterModal(props) {
                         filterNight,
                         filterBasement,
                         filterShort,
+                        filterDistance,
                       ),
                     );
                   }}>
