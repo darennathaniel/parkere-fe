@@ -7,6 +7,7 @@ import {
   TextInput,
   Image,
   TouchableOpacity,
+  FlatList,
 } from 'react-native';
 import {useSelector} from 'react-redux';
 import {filterCarpark, handleChangeText} from './services';
@@ -19,12 +20,15 @@ export default function Search(props) {
   const carparks = useSelector(state => state.carparks.data);
 
   const [show, setShow] = useState(false);
+  const [offset, setOffest] = useState(0);
+
   const [filterNo, setFilterNo] = useState('');
   const [filterAddr, setFilterAddr] = useState('');
   const [filterFree, setFilterFree] = useState(null);
   const [filterNight, setFilterNight] = useState(null);
   const [filterBasement, setFilterBasement] = useState(null);
   const [filterShort, setFilterShort] = useState(null);
+  const [filterDistance, setFilterDistance] = useState(null);
 
   const [filteredCarparks, setFilteredCarparks] = useState(
     filterCarpark(
@@ -35,12 +39,41 @@ export default function Search(props) {
       filterNight,
       filterBasement,
       filterShort,
+      filterDistance,
     ),
   );
   const ref = useRef(null);
 
   const handleTop = () => {
-    ref.current.scrollTo({x: 0, y: 0, animated: true});
+    ref.current.scrollToIndex({index: 0, animated: true});
+  };
+
+  const renderItem = ({item}) => {
+    return (
+      <TouchableOpacity
+        testID="park_number"
+        key={item.park_number}
+        onPress={() =>
+          props.navigation.navigate(item.park_number, {search: true})
+        }>
+        <View key={item.night_parking} style={styles.carparkContainer}>
+          <View>
+            <Text style={typography.text}>
+              {item.park_address} ({item.park_number})
+            </Text>
+          </View>
+          <View>
+            {parseInt(item.distance) === 0 ? (
+              <Text style={typography.text}>
+                {parseInt(item.distance * 1000)}m
+              </Text>
+            ) : (
+              <Text style={typography.text}>{parseInt(item.distance)}km</Text>
+            )}
+          </View>
+        </View>
+      </TouchableOpacity>
+    );
   };
 
   return (
@@ -105,49 +138,31 @@ export default function Search(props) {
           />
         </View>
       </View>
-      <ScrollView style={styles.scrollContainer} ref={ref} testID="scroll_view">
-        {filteredCarparks.map(carpark => {
-          return (
-            <TouchableOpacity
-              testID="park_number"
-              key={carpark.park_number}
-              onPress={() =>
-                props.navigation.navigate(carpark.park_number, {search: true})
-              }>
-              <View key={carpark.night_parking} style={styles.carparkContainer}>
-                <View>
-                  <Text style={typography.text}>
-                    {carpark.park_address} ({carpark.park_number})
-                  </Text>
-                </View>
-                <View>
-                  {parseInt(carpark.distance) === 0 ? (
-                    <Text style={typography.text}>
-                      {parseInt(carpark.distance * 1000)}m
-                    </Text>
-                  ) : (
-                    <Text style={typography.text}>
-                      {parseInt(carpark.distance)}km
-                    </Text>
-                  )}
-                </View>
-              </View>
-            </TouchableOpacity>
-          );
-        })}
-      </ScrollView>
-      <View style={bottomButton.centerButton}>
-        <TouchableOpacity
-          style={[bottomButton.circleBg, {bottom: -60}]}
-          onPress={() => {
-            handleTop();
-          }}>
-          <Image
-            source={require('./assets/upload.png')}
-            style={bottomButton.locationImage}
-          />
-        </TouchableOpacity>
-      </View>
+      <FlatList
+        style={styles.scrollContainer}
+        ref={ref}
+        testID="scroll_view"
+        data={filteredCarparks}
+        renderItem={renderItem}
+        keyExtractor={item => item.park_number}
+        onScroll={e => setOffest(e.nativeEvent.contentOffset.y)}
+      />
+      {offset > 500 ? (
+        <View style={bottomButton.centerButton}>
+          <TouchableOpacity
+            style={[bottomButton.circleBg, {bottom: -60}]}
+            onPress={() => {
+              handleTop();
+            }}>
+            <Image
+              source={require('./assets/upload.png')}
+              style={bottomButton.locationImage}
+            />
+          </TouchableOpacity>
+        </View>
+      ) : (
+        <View></View>
+      )}
       <FilterModal
         show={show}
         setShow={setShow}
@@ -162,6 +177,8 @@ export default function Search(props) {
         setFilteredCarparks={setFilteredCarparks}
         filterNo={filterNo}
         filterAddr={filterAddr}
+        filterDistance={filterDistance}
+        setFilterDistance={setFilterDistance}
       />
     </SafeAreaView>
   );
