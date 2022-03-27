@@ -38,5 +38,5 @@ test('modal', () => {
   expect(response.queryByTestId('modal')).toBeNull();
   const container = response.getByTestId('scroll_view');
   const data = container.props.children[1].props.children;
-  data.forEach(e => expect(e.props.children.key).toBe('YES'));
+  data.forEach(e => expect(e.props.item.night_parking).toBe('YES'));
 });
