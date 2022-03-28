@@ -1,19 +1,32 @@
-import React from 'react';
+import React, {useState} from 'react';
 import MapView, {Marker} from 'react-native-maps';
 import {useSelector, useDispatch} from 'react-redux';
 import {setSearch} from '../../slices/isLoggedSlice';
 import mapStyle from '../home/styles';
-import {View, TouchableOpacity, Image} from 'react-native';
+import {View, TouchableOpacity, Image, Text, SafeAreaView} from 'react-native';
 import {showLocation} from 'react-native-map-link';
+import topNav from '../register/styles';
 
 export default function Map(props) {
   const sourceCoordinate = useSelector(state => state.isLogged.search);
+  const [markers, setMarkers] = useState(sourceCoordinate);
   const destCoordinate = props.route.params;
   const dispatch = useDispatch();
   return (
     <>
+      <SafeAreaView style={[topNav.topLeftNavigation, {left: 30, height: 75}]}>
+        <TouchableOpacity onPress={() => props.navigation.goBack()}>
+          <Text>Back</Text>
+        </TouchableOpacity>
+      </SafeAreaView>
       <MapView
         style={mapStyle.map}
+        onPress={e =>
+          setMarkers({
+            lat: e.nativeEvent.coordinate.latitude,
+            lng: e.nativeEvent.coordinate.longitude,
+          })
+        }
         initialRegion={{
           latitude: sourceCoordinate.lat,
           longitude: sourceCoordinate.lng,
@@ -22,8 +35,8 @@ export default function Map(props) {
         }}>
         <Marker
           coordinate={{
-            latitude: sourceCoordinate.lat,
-            longitude: sourceCoordinate.lng,
+            latitude: markers.lat,
+            longitude: markers.lng,
           }}
           pinColor="black"
           draggable={true}
@@ -36,17 +49,18 @@ export default function Map(props) {
                 },
               }),
             )
-          }></Marker>
+          }
+        />
       </MapView>
-      <View style={mapStyle.centerButton}>
+      <View style={[mapStyle.centerButton, {bottom: 0}]}>
         <TouchableOpacity
-          style={[mapStyle.circleBg, {bottom: -60}]}
+          style={mapStyle.circleBg}
           onPress={() => {
             showLocation({
               latitude: destCoordinate.latitude,
               longitude: destCoordinate.longitude,
-              sourceLatitude: sourceCoordinate.lat,
-              sourceLongitude: sourceCoordinate.lng,
+              sourceLatitude: markers.lat,
+              sourceLongitude: markers.lng,
             });
             props.navigation.goBack();
           }}>
