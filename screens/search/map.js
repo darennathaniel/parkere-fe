@@ -14,10 +14,16 @@ export default function Map(props) {
   const dispatch = useDispatch();
   return (
     <>
-      <SafeAreaView style={[topNav.topLeftNavigation, {left: 30, height: 75}]}>
-        <TouchableOpacity onPress={() => props.navigation.goBack()}>
-          <Text>Back</Text>
-        </TouchableOpacity>
+      <SafeAreaView style={[{height: 75}, topNav.topNavigation]}>
+        <View style={topNav.topLeftNavigation}>
+          <TouchableOpacity onPress={() => props.navigation.goBack()}>
+            <Text>Back</Text>
+          </TouchableOpacity>
+        </View>
+        <View style={[topNav.topMiddleNavigation, {width: '40%'}]}>
+          <Text>Click or Drag the Marker!</Text>
+        </View>
+        <View style={topNav.topRightNavigation}></View>
       </SafeAreaView>
       <MapView
         style={mapStyle.map}
