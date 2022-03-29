@@ -13,14 +13,12 @@ const styles = StyleSheet.create({
     height: '90%',
   },
   carparkContainer: {
-    flex: 1,
-    padding: 13,
+    padding: 12,
     backgroundColor: '#F2F0F0',
     marginTop: 10,
     width: '100%',
     flexDirection: 'row',
     justifyContent: 'space-between',
-    flexWrap: 'wrap',
   },
   searchContainer: {
     height: '13%',
@@ -45,6 +43,23 @@ const styles = StyleSheet.create({
   searchImage: {
     height: 30,
     width: 30,
+  },
+  carparkInfoContainer: {
+    width: '90%',
+  },
+  carparkDistanceContainer: {
+    width: '9%',
+    alignSelf: 'center',
+    justifyContent: 'flex-end',
+  },
+  moreButton: {
+    borderWidth: 1,
+    borderRadius: 10,
+    paddingHorizontal: 4,
+  },
+  iconContainer: {
+    alignItems: 'center',
+    justifyContent: 'center',
   },
 });
 

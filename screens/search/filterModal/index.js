@@ -44,7 +44,7 @@ export default function FilterModal(props) {
               </TouchableOpacity>
             </View>
             <View>
-              <Text style={[typography.text, styles.title]}>Filter</Text>
+              <Text style={[typography.text, styles.title]}>Sort</Text>
             </View>
             <View style={styles.container}>
               <Text style={[typography.text, styles.text]}>Shortest</Text>
@@ -52,6 +52,9 @@ export default function FilterModal(props) {
                 value={filterDistance === null ? false : filterDistance}
                 onValueChange={e => setFilterDistance(e)}
               />
+            </View>
+            <View>
+              <Text style={[typography.text, styles.title]}>Filter</Text>
             </View>
             <View style={styles.container}>
               <Text style={[typography.text, styles.text]}>Free Parking</Text>

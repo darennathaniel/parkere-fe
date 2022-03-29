@@ -57,12 +57,12 @@ export default function Search(props) {
           props.navigation.navigate(item.park_number, {search: true})
         }>
         <View key={item.night_parking} style={styles.carparkContainer}>
-          <View>
+          <View style={styles.carparkInfoContainer}>
             <Text style={typography.text}>
               {item.park_address} ({item.park_number})
             </Text>
           </View>
-          <View>
+          <View style={styles.carparkDistanceContainer}>
             {parseInt(item.distance) === 0 ? (
               <Text style={typography.text}>
                 {parseInt(item.distance * 1000)}m
@@ -79,7 +79,7 @@ export default function Search(props) {
   return (
     <SafeAreaView style={styles.container}>
       <View style={styles.searchContainer}>
-        <View>
+        <View style={styles.iconContainer}>
           <View style={{height: '20%'}}>
             <Image
               source={require('./assets/search.png')}
@@ -93,7 +93,8 @@ export default function Search(props) {
             }}>
             <TouchableOpacity
               onPress={() => setShow(true)}
-              testID="open_button">
+              testID="open_button"
+              style={styles.moreButton}>
               <Text>More</Text>
             </TouchableOpacity>
           </View>

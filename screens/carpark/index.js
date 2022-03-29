@@ -123,7 +123,7 @@ export default function Carpark(props) {
                     );
                   }
                 }}>
-                <Text>Delete From Favorite</Text>
+                <Text>Delete Favorite</Text>
               </TouchableOpacity>
             </View>
           ) : (
