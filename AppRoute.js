@@ -21,27 +21,31 @@ export default function AppRoute() {
 
   useEffect(() => {
     (async () => {
-      const {status} = await Location.requestForegroundPermissionsAsync();
-      if (status !== 'granted') {
-        props.navigation.navigate('Search');
-        return;
-      }
+      try {
+        const {status} = await Location.requestForegroundPermissionsAsync();
+        if (status !== 'granted') {
+          props.navigation.navigate('Search');
+          return;
+        }
 
-      let currLocation = await Location.getCurrentPositionAsync({});
-      dispatch(
-        setLocation({
-          location: {
-            lat: currLocation.coords.latitude,
-            lng: currLocation.coords.longitude,
-          },
-          search: {
-            lat: currLocation.coords.latitude,
-            lng: currLocation.coords.longitude,
-          },
-        }),
-      );
-      const data = await getAllCarpark(currLocation.coords);
-      dispatch(setCarparks({data: data.data.data}));
+        let currLocation = await Location.getCurrentPositionAsync({});
+        dispatch(
+          setLocation({
+            location: {
+              lat: currLocation.coords.latitude,
+              lng: currLocation.coords.longitude,
+            },
+            search: {
+              lat: currLocation.coords.latitude,
+              lng: currLocation.coords.longitude,
+            },
+          }),
+        );
+        const data = await getAllCarpark(currLocation.coords);
+        dispatch(setCarparks({data: data.data.data}));
+      } catch (err) {
+        console.log(err.response.data);
+      }
     })();
   }, []);
 

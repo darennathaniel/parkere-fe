@@ -1,9 +1,8 @@
-import React, {useRef, useState} from 'react';
+import React, {useMemo, useRef, useState} from 'react';
 import {
   SafeAreaView,
   Text,
   View,
-  ScrollView,
   TextInput,
   Image,
   TouchableOpacity,
@@ -29,10 +28,19 @@ export default function Search(props) {
   const [filterBasement, setFilterBasement] = useState(null);
   const [filterShort, setFilterShort] = useState(null);
   const [filterDistance, setFilterDistance] = useState(null);
-
-  const [filteredCarparks, setFilteredCarparks] = useState(
-    filterCarpark(
-      carparks,
+  const memoizedData = useMemo(
+    () =>
+      filterCarpark(
+        carparks,
+        filterNo,
+        filterAddr,
+        filterFree,
+        filterNight,
+        filterBasement,
+        filterShort,
+        filterDistance,
+      ),
+    [
       filterNo,
       filterAddr,
       filterFree,
@@ -40,8 +48,9 @@ export default function Search(props) {
       filterBasement,
       filterShort,
       filterDistance,
-    ),
+    ],
   );
+  const [filteredCarparks, setFilteredCarparks] = useState(memoizedData);
   const ref = useRef(null);
 
   const handleTop = () => {
@@ -140,6 +149,7 @@ export default function Search(props) {
         </View>
       </View>
       <FlatList
+        removeClippedSubviews
         style={styles.scrollContainer}
         ref={ref}
         testID="scroll_view"

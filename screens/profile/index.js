@@ -60,7 +60,13 @@ export default function Profile(props) {
           title="Logout"
           onPress={() => {
             delToken();
-            dispatch(setLogout({value: false}));
+            dispatch(
+              setLogout({
+                value: false,
+                location: {...data.location},
+                search: {...data.search},
+              }),
+            );
           }}
         />
       </View>

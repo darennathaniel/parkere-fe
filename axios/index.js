@@ -1,5 +1,5 @@
 import axios from 'axios';
-const endpoint = 'http://localhost:4000';
+const endpoint = 'http://110.238.104.188:4000';
 
 export const AxiosInit = () => {
   try {
