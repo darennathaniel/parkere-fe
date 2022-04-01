@@ -1,4 +1,4 @@
-import React, {useEffect, useRef} from 'react';
+import React, {useEffect, useRef, useState} from 'react';
 import {
   View,
   Text,
@@ -14,24 +14,32 @@ import {alertRain, centerView} from './services';
 import {forecastAlert} from './alert';
 import {setFilteredCarparks} from '../../slices/carparkSlice';
 import * as Location from 'expo-location';
+import PopUp from '../common/errorModal';
 
 export default function Home(props) {
   const dispatch = useDispatch();
   const ref = useRef(null);
 
   const location = useSelector(state => state.isLogged.location);
-
   const carparks = useSelector(state => state.carparks.data);
+
+  const [showErr, setShowErr] = useState(false);
+  const [errMsg, setErrMsg] = useState('');
   useEffect(() => {
     (async () => {
-      const {status} = await Location.requestForegroundPermissionsAsync();
-      if (status !== 'granted') {
-        props.navigation.navigate('Search');
-        return;
-      }
+      try {
+        const {status} = await Location.requestForegroundPermissionsAsync();
+        if (status !== 'granted') {
+          props.navigation.navigate('Search');
+          return;
+        }
 
-      let currLocation = await Location.getCurrentPositionAsync({});
-      alertRain(dispatch, setFilteredCarparks, forecastAlert, currLocation);
+        let currLocation = await Location.getCurrentPositionAsync({});
+        alertRain(dispatch, setFilteredCarparks, forecastAlert, currLocation);
+      } catch (err) {
+        setErrMsg(err.response.message);
+        setShowErr(true);
+      }
     })();
   }, []);
 
@@ -99,6 +107,7 @@ export default function Home(props) {
           <ActivityIndicator size="large" />
         )}
       </View>
+      <PopUp show={showErr} setShow={setShowErr} message={errMsg} />
     </SafeAreaView>
   );
 }

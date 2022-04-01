@@ -34,7 +34,10 @@ export default function Carpark(props) {
       .then(res => {
         setReviews(res.data.data);
       })
-      .catch(err => console.log(err.response.data));
+      .catch(err => {
+        setErrMsg(err.response.data.message);
+        setShowErr(true);
+      });
 
     getAvailability()
       .then(res => {
@@ -46,8 +49,10 @@ export default function Carpark(props) {
           setCapacity(data.total_lots);
         }
       })
-      .catch(err => console.log(err));
-    return () => {};
+      .catch(err => {
+        setErrMsg(err.response.message);
+        setShowErr(true);
+      });
   }, []);
 
   const [reviews, setReviews] = useState([]);
@@ -55,6 +60,7 @@ export default function Carpark(props) {
   const [capacity, setCapacity] = useState(0);
   const [show, setShow] = useState(false);
   const [showErr, setShowErr] = useState(false);
+  const [errMsg, setErrMsg] = useState('');
   return (
     <SafeAreaView style={styles.container}>
       <View style={[topNav.topNavigation, {backgroundColor: 'white'}]}>
@@ -306,7 +312,7 @@ export default function Carpark(props) {
             </Text>
             <TouchableOpacity
               style={styles.addButton}
-              onPress={() => handleShow(setShow, setShowErr)}>
+              onPress={() => handleShow(setShow, setShowErr, setErrMsg)}>
               <Text>Add Review</Text>
             </TouchableOpacity>
           </View>
@@ -359,11 +365,7 @@ export default function Carpark(props) {
         reviews={reviews}
         setReviews={setReviews}
       />
-      <PopUp
-        show={showErr}
-        setShow={setShowErr}
-        message={'Please Login to give a review!'}
-      />
+      <PopUp show={showErr} setShow={setShowErr} message={errMsg} />
     </SafeAreaView>
   );
 }
