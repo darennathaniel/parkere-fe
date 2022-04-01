@@ -11,6 +11,7 @@ import {getAllCarpark} from './screens/search/services';
 import {setCarparks} from './slices/carparkSlice';
 import {Image} from 'react-native';
 import {setLocation} from './slices/isLoggedSlice';
+import {delToken} from './screens/common/authorization';
 
 const Root = createBottomTabNavigator();
 
@@ -22,6 +23,7 @@ export default function AppRoute() {
   useEffect(() => {
     (async () => {
       try {
+        await delToken();
         const {status} = await Location.requestForegroundPermissionsAsync();
         if (status !== 'granted') {
           props.navigation.navigate('Search');
