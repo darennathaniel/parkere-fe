@@ -29,10 +29,20 @@ export default function Carpark(props) {
   const carpark = route.params.carpark;
   const user = useSelector(state => state.isLogged);
   const carparks = useSelector(state => state.carparks);
+  const [ratings, setRatings] = useState(0);
+  const [total, setTotal] = useState(0);
   useEffect(() => {
     getReviews(carpark._id)
       .then(res => {
         setReviews(res.data.data);
+        if (res.data.data.length > 0) {
+          let totalRatings = 0;
+          for (let i = 0; i < res.data.data.length; i++) {
+            totalRatings += res.data.data[i].rating;
+          }
+          setRatings(totalRatings);
+          setTotal(res.data.data.length);
+        }
       })
       .catch(err => {
         setErrMsg(err.response.data.message);
@@ -49,10 +59,7 @@ export default function Carpark(props) {
           setCapacity(data.total_lots);
         }
       })
-      .catch(err => {
-        setErrMsg(err.response.message);
-        setShowErr(true);
-      });
+      .catch(err => {});
   }, []);
 
   const [reviews, setReviews] = useState([]);
@@ -307,14 +314,27 @@ export default function Carpark(props) {
         </View>
         <View style={styles.reviewContainer}>
           <View style={styles.reviewTitleContainer}>
-            <Text style={[typography.text, styles.reviewTitleText]}>
-              Reviews
-            </Text>
-            <TouchableOpacity
-              style={styles.addButton}
-              onPress={() => handleShow(setShow, setShowErr, setErrMsg)}>
-              <Text>Add Review</Text>
-            </TouchableOpacity>
+            <View style={{flexDirection: 'row', alignItems: 'center'}}>
+              <Text style={[typography.text, styles.reviewTitleText]}>
+                Reviews{'  '}
+                {ratings === 0 ? <Text></Text> : (ratings / total).toFixed(1)}
+              </Text>
+              {ratings === 0 ? (
+                <></>
+              ) : (
+                <Image
+                  style={{maxHeight: 25, maxWidth: 25, marginLeft: 5}}
+                  source={require('./assets/star.png')}
+                />
+              )}
+            </View>
+            <View>
+              <TouchableOpacity
+                style={styles.addButton}
+                onPress={() => handleShow(setShow, setShowErr, setErrMsg)}>
+                <Text>Add Review</Text>
+              </TouchableOpacity>
+            </View>
           </View>
           <View style={styles.reviewScrollView}>
             <ScrollView style={styles.reviewContentScrollContainer}>
@@ -364,6 +384,10 @@ export default function Carpark(props) {
         carparkId={carpark._id}
         reviews={reviews}
         setReviews={setReviews}
+        ratings={ratings}
+        setRatings={setRatings}
+        total={total}
+        setTotal={setTotal}
       />
       <PopUp show={showErr} setShow={setShowErr} message={errMsg} />
     </SafeAreaView>

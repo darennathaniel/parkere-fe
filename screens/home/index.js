@@ -84,6 +84,9 @@ export default function Home(props) {
                         <Text>
                           {carpark.park_address} ({carpark.park_number})
                         </Text>
+                        <Text style={{textAlign: 'center'}}>
+                          Click the text to show more!
+                        </Text>
                       </TouchableOpacity>
                     </Callout>
                   </Marker>

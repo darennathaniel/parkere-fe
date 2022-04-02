@@ -21,7 +21,18 @@ import PopUp from '../../common/errorModal';
 import typography from '../../common/typography';
 
 export default function ReviewModal(props) {
-  const {show, setShow, title, carparkId, reviews, setReviews} = props;
+  const {
+    show,
+    setShow,
+    title,
+    carparkId,
+    reviews,
+    setReviews,
+    ratings,
+    setRatings,
+    total,
+    setTotal,
+  } = props;
 
   const [rating, setRating] = useState(3);
   const [comment, setComment] = useState('');
@@ -72,6 +83,8 @@ export default function ReviewModal(props) {
                   comment: comment,
                 });
                 setReviews([...reviews, response]);
+                setRatings(ratings + rating);
+                setTotal(total + 1);
                 setShow(false);
               } catch (err) {
                 setMessage(err.response.data.message);
