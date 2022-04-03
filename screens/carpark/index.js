@@ -9,6 +9,7 @@ import {
 } from 'react-native';
 import styles from './styles';
 import topNav from '../register/styles';
+import buttonRight from '../home/styles';
 import {
   getAvailability,
   getReviews,
@@ -70,7 +71,11 @@ export default function Carpark(props) {
   const [errMsg, setErrMsg] = useState('');
   return (
     <SafeAreaView style={styles.container}>
-      <View style={[topNav.topNavigation, {backgroundColor: 'white'}]}>
+      <View
+        style={[
+          topNav.topNavigation,
+          {backgroundColor: 'white', alignItems: 'center'},
+        ]}>
         <View style={topNav.topLeftNavigation}>
           <TouchableOpacity
             onPress={() => {
@@ -82,6 +87,7 @@ export default function Carpark(props) {
         <View style={topNav.topMiddleNavigation}>
           {user.location.lat === 0 && user.location.lng === 0 ? (
             <TouchableOpacity
+              style={[buttonRight.circleBg, {width: 40, height: 40}]}
               onPress={() => {
                 openMapDirection(
                   carpark.lat,
@@ -96,6 +102,10 @@ export default function Carpark(props) {
             </TouchableOpacity>
           ) : (
             <TouchableOpacity
+              style={[
+                buttonRight.circleBg,
+                {width: '110%', height: 40, flexDirection: 'row'},
+              ]}
               onPress={() => {
                 props.navigation.navigate('Map', {
                   latitude: carpark.lat,
@@ -106,6 +116,9 @@ export default function Carpark(props) {
                 source={require('../login/assets/google.png')}
                 style={googleStyle.googleImg}
               />
+              <Text style={[typography.text, {fontSize: 15}]}>
+                {'  '}Directions
+              </Text>
             </TouchableOpacity>
           )}
         </View>

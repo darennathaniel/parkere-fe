@@ -16,6 +16,7 @@ const styles = StyleSheet.create({
     position: 'relative',
     flexDirection: 'row',
     justifyContent: 'space-evenly',
+    zIndex: 1,
   },
   topLeftNavigation: {
     width: '25%',

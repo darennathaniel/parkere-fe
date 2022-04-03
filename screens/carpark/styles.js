@@ -8,6 +8,7 @@ const styles = StyleSheet.create({
   scrollContainer: {
     height: '200%',
     backgroundColor: 'white',
+    zIndex: 0,
   },
   carparkContainer: {
     height: '50%',
