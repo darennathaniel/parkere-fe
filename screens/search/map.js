@@ -12,6 +12,7 @@ export default function Map(props) {
   const [markers, setMarkers] = useState(sourceCoordinate);
   const destCoordinate = props.route.params;
   const dispatch = useDispatch();
+  console.log(destCoordinate);
   return (
     <>
       <SafeAreaView style={[{height: 75}, topNav.topNavigation]}>
@@ -38,10 +39,12 @@ export default function Map(props) {
             (Number(destCoordinate.latitude) + sourceCoordinate.lat) / 2,
           longitude:
             (Number(destCoordinate.longitude) + sourceCoordinate.lng) / 2,
-          latitudeDelta:
+          latitudeDelta: Math.abs(
             (Number(destCoordinate.latitude) - sourceCoordinate.lat) * 1.7,
-          longitudeDelta:
+          ),
+          longitudeDelta: Math.abs(
             (Number(destCoordinate.longitude) - sourceCoordinate.lng) * 1.7,
+          ),
         }}>
         <Marker
           coordinate={{
