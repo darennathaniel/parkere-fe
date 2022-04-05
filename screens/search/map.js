@@ -34,10 +34,14 @@ export default function Map(props) {
           })
         }
         initialRegion={{
-          latitude: sourceCoordinate.lat,
-          longitude: sourceCoordinate.lng,
-          latitudeDelta: 0.007,
-          longitudeDelta: 0.007,
+          latitude:
+            (Number(destCoordinate.latitude) + sourceCoordinate.lat) / 2,
+          longitude:
+            (Number(destCoordinate.longitude) + sourceCoordinate.lng) / 2,
+          latitudeDelta:
+            (Number(destCoordinate.latitude) - sourceCoordinate.lat) * 1.7,
+          longitudeDelta:
+            (Number(destCoordinate.longitude) - sourceCoordinate.lng) * 1.7,
         }}>
         <Marker
           coordinate={{
@@ -56,6 +60,12 @@ export default function Map(props) {
               }),
             )
           }
+        />
+        <Marker
+          coordinate={{
+            latitude: Number(destCoordinate.latitude),
+            longitude: Number(destCoordinate.longitude),
+          }}
         />
       </MapView>
       <View style={[mapStyle.centerButton, {bottom: 0}]}>
